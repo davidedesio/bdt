@@ -1,0 +1,65 @@
+
+<div class="row align-items-center">
+    <div class="col-8">
+        <h6 class="heading-small text-muted mb-4">{{ 'PROFILE_PAGE_SUBTITLE_1'|trans }}</h6>
+    </div>
+    <div class="col-4 text-right">
+        <a href="javascript:void(0)" class="btn btn-sm btn-success save-user">{{ 'PROFILE_PAGE_SAVE'|trans }}</a>
+    </div>
+</div>
+<div class="pl-lg-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label">{{ 'EMAIL'|trans }}</label>
+                {{ form_row(form.email, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                <p class="profile-hint">{{ 'PROFILE_PAGE_EMAIL_HINT'|trans }}</p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label">{{ 'FISCAL_CODE'|trans }}</label>
+                {{ form_row(form.fiscal_code, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'NAME'|trans }}</label>
+                {{ form_row(form.name, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'SURNAME'|trans }}</label>
+                {{ form_row(form.surname, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'PHONE'|trans }}</label>
+                {{ form_row(form.phone, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                <p class="profile-hint">Non condividiamo il tuo numero di telefono per proteggere la tua privacy</p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'BIRTH_DATE'|trans }}</label>
+                {{ form_widget(form.birth_date, {'attr': {'class': 'form-control form-control-alternative datepicker'}}) }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="custom-control custom-switch">
+                {{ form_widget(form.driving_licence, {'attr': {'class': 'custom-control-input'}}) }}
+                {% if editUser is defined %}
+                    <label class="custom-control-label" for="user_for_admin_edit_driving_licence">{{ 'DRIVER'|trans }}</label>
+                {% else %}
+                    <label class="custom-control-label" for="user_for_admin_insert_driving_licence">{{ 'DRIVER'|trans }}</label>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

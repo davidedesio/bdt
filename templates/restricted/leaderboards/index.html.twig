@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block body %}
+
+    {% include('restricted/commons/listing-notifications.html.twig') %}
+    {% include('restricted/commons/offcanvas-menu-right.html.twig') %}
+
+    <div id="main" class="main-content">
+        {% include 'restricted/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0 d-none d-lg-block">
+                    <hr class="my-4">
+                    {% include('restricted/user-profile/partials/card.profile.html.twig') %}
+                </div>
+                <div class="col-xl-8 order-xl-1">
+                    {% include('restricted/leaderboards/partials/heading.html.twig') %}
+                    <hr>
+                    {% include('restricted/leaderboards/partials/listing.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'restricted/commons/footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+    <script>
+        $(document).ready( function () {
+            $("#points").DataTable({
+                paging:false,
+                searching: false,
+                ordering:  false,
+                info: false
+            });
+            $("#done").DataTable({
+                paging:false,
+                searching: false,
+                ordering:  false,
+                info: false
+            });
+            $("#get").DataTable({
+                paging:false,
+                searching: false,
+                ordering:  false,
+                info: false
+            });
+        });
+    </script>
+{% endblock %}

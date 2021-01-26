@@ -1,0 +1,8 @@
+<div id="notifications" class="offcanvas">
+    <a class="close-button" href="javascript:void(0)" onclick="toggleNotifications()"><i class="fa fa-times"></i></a>
+    <div class="main-content">
+        {% for notification in notifications %}
+            {% include('restricted/commons/notification.html.twig') %}
+        {% endfor %}
+    </div>
+</div>

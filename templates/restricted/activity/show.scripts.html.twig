@@ -1,0 +1,123 @@
+<script>
+    $(".hourglass-wrapper").fadeOut(1500);
+
+    var chooseUser = function(activity_id,type,value,user_id,user_name){
+
+        var content = "";
+        if(type===1){
+            content = "{{ 'ACTIVITY_CHOOSE_AVAILABLE'|trans|raw }}"+user_name+ ".";
+            content += "{{ 'ACTIVITY_CHOOSE_AVAILABLE_POSTFIX'|trans|raw }}".replace("[value]",value);
+        } else if(type===2) {
+            content = "{{ 'ACTIVITY_CHOOSE_NEEDED'|trans|raw }}"+user_name+ '.';
+            content += "{{ 'ACTIVITY_CHOOSE_NEEDED_POSTFIX'|trans|raw }}".replace("[value]",value);
+        }
+
+        var box = new jBox('Confirm', {
+            title: "{{ 'ACTIVITY_CHOOSE_QUESTION'|trans|raw }}"+user_name+ '?',
+            content: content,
+            confirm: function(){
+                performActivityAccept(activity_id,user_id)
+            },
+            confirmButton: "{{ 'ACTIVITY_CHOOSE_CONFIRM'|trans }}",
+            cancelButton: "{{ 'ACTIVITY_CHOOSE_CANCEL'|trans }}"
+        });
+
+        box.open();
+    }
+
+    var performActivityAccept = function(activity_id,user_id){
+        $(".spinner-wrapper").show();
+        $.ajax({
+            url: '/restricted/activity/accept/'+activity_id,
+            data:{user_id:user_id},
+            type: "POST",
+            success: function(response){
+                console.log(response)
+                if(!response.error){
+                    window.location.reload();
+                }
+            }
+        })
+    }
+
+    var activityMatch = function(id,type,value){
+
+        var title = "";
+        var content = "";
+        if(type===1){
+            title = "{{ 'ACTIVITY_MATCH_AVAILABLE_QUESTION'|trans|raw }}";
+            content = "{{ 'ACTIVITY_MATCH_AVAILABLE_CAPTION'|trans|raw }}".replace("[value]",value);;
+
+        } else if(type===2) {
+            title = "{{ 'ACTIVITY_MATCH_NEEDED_QUESTION'|trans|raw }}";
+            content = "{{ 'ACTIVITY_MATCH_NEEDED_CAPTION'|trans|raw }}".replace("[value]",value);;
+        }
+
+        var box = new jBox('Confirm', {
+            title: title,
+            content: content,
+            confirm: function(){
+                performActivityMatch(id)
+            },
+            confirmButton: "{{ 'ACTIVITY_CHOOSE_CONFIRM'|trans }}",
+            cancelButton: "{{ 'ACTIVITY_CHOOSE_CANCEL'|trans }}"
+        });
+
+        box.open();
+
+    }
+
+    var performActivityMatch = function(id){
+        $(".spinner-wrapper").show();
+        $.ajax({
+            url: '/restricted/activity/match/'+id,
+            type: "POST",
+            success: function(response){
+                console.log(response)
+                if(!response.error){
+                    window.location.reload();
+                }
+            }
+        })
+    }
+
+    var addComment = function(){
+        var comment = $("#activity-comment").val()
+        if(comment){
+            $("#activity-comment-button").addClass("disabled").attr("disabled","disabled");
+            $("#activity-comment").addClass("disabled").attr("disabled","disabled");
+            $.ajax({
+                url: '/restricted/activity/comment/{{ activity.id }}',
+                type: "POST",
+                data: {comment:comment},
+                success: function(response){
+                    $("#listing-comments").append(response)
+                    $("#activity-comment-button").removeClass("disabled").removeAttr("disabled");
+                    $("#activity-comment").removeClass("disabled").removeAttr("disabled").val("");
+                }
+            })
+        }
+    }
+
+    var fetching = false;
+    var fetchComments = function(){
+        if(!fetching){
+            fetching = true;
+            $.ajax({
+                url: '/restricted/activity/comments/{{ activity.id }}',
+                type: "POST",
+                data: { since:$("#since").val()},
+                success: function(response){
+                    $("#since").val(response.since)
+                    $("#listing-comments").append(response.html)
+                    fetching = false;
+                }
+            })
+        }
+
+    }
+
+    setInterval(function(){
+        fetchComments()
+    },10000)
+</script>

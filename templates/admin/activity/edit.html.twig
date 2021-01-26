@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block title %}{{ 'ACTIVITY'|trans }} {{ activity.id }}{% endblock %}
+
+{% block body %}
+
+    {% include('admin/commons/offcanvas-menu-right.html.twig') %}
+    <div id="main" class="main-content">
+
+        {% include 'admin/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <div class="container-fluid mt--7">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>{{ 'ACTIVITY_INSERT_CTA'|trans }}</h1>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="btn btn-primary" href="{{ path('admin_activity_index') }}">{{ 'BACK'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ include('admin/activity/_form.html.twig') }}
+                </div>
+            </div>
+
+            {% include('restricted/activity/partials/detail-people-involved.html.twig') %}
+
+            {% include('restricted/activity/partials/detail-comments.html.twig') %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ encore_entry_script_tags('restricted') }}
+
+    <script>
+
+        let getRoundedDate = (minutes, d=new Date()) => {
+
+            let ms = 1000 * 60 * minutes; // convert minutes to ms
+            let roundedDate = new Date(Math.round(d.getTime() / ms) * ms);
+
+            return roundedDate
+        }
+
+        var selectizeCreateUser = $("#activity_for_admin_createUser").selectize({
+            maxItems:1
+        });
+
+        {% if activity.acceptedUser is not null %}
+            console.log(selectizeCreateUser)
+            selectizeCreateUser[0].selectize.disable()
+        {% endif %}
+
+        $("#activity_for_admin_date").datepicker({
+            minDate: 0,
+            dateFormat: 'dd/mm/yy'
+        }).datepicker('setDate', new Date());
+
+        $('#activity_for_admin_time').timepicker({
+            timeFormat: 'H:i',
+            scrollDefault: 'now'
+        }).timepicker('setTime', getRoundedDate(30));
+
+        var addComment = function(){
+            var comment = $("#activity-comment").val()
+            if(comment){
+                $("#activity-comment-button").addClass("disabled").attr("disabled","disabled");
+                $("#activity-comment").addClass("disabled").attr("disabled","disabled");
+                $.ajax({
+                    url: '/restricted/activity/comment/{{ activity.id }}',
+                    type: "POST",
+                    data: {comment:comment},
+                    success: function(response){
+                        $("#listing-comments").append(response)
+                        $("#activity-comment-button").removeClass("disabled").removeAttr("disabled");
+                        $("#activity-comment").removeClass("disabled").removeAttr("disabled").val("");
+                    }
+                })
+            }
+        }
+
+        var fetching = false;
+        var fetchComments = function(){
+            if(!fetching){
+                fetching = true;
+                $.ajax({
+                    url: '/restricted/activity/comments/{{ activity.id }}',
+                    type: "POST",
+                    data: { since:$("#since").val()},
+                    success: function(response){
+                        $("#since").val(response.since)
+                        $("#listing-comments").append(response.html)
+                        fetching = false;
+                    }
+                })
+            }
+
+        }
+
+        setInterval(function(){
+            fetchComments()
+        },10000)
+
+        var delComment = function(id,user){
+
+            var box = new jBox('Confirm', {
+                title: "{{'ACTIVITY_COMMENT_DELETE_QUESTION'|trans}} "+user+ '?',
+                content: "{{ 'ACTIVITY_COMMENT_DELETE_CAPTION'|trans }}",
+                confirm: function(data){
+                    $.ajax({
+                        url: '/admin/activity/delete/comment/'+id,
+                        type: "POST",
+                        success: function(response){
+                            console.log(data)
+                            $("#comment-"+id).remove();
+                        }
+                    })
+
+                },
+                confirmButton: "{{ 'CONFIRM'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        }
+
+    </script>
+{% endblock %}

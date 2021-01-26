@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('public') }}
+{% endblock %}
+
+{% block body %}
+
+    <a class="login-logo-image" href="/">
+        <img src="assets/img/0-logo-bianco.png" alt="alternative">
+        <span class="beta-icon">Beta</span>
+    </a>
+
+    <div id="section-auth">
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
+        <div class="login-block">
+            <h1>{{ 'REGISTER_TITLE'|trans }}</h1>
+            <p>{{ 'REGISTER_CAPTION'|trans|raw }} </p>
+
+            {{ form_start(registrationForm) }}
+                {% if form_errors(registrationForm.email.first) is not empty %}<div class="error" role="alert">{{ form_errors(registrationForm.email.first) }}</div>{% endif %}
+                {% if form_errors(registrationForm.email.second) is not empty %}<div class="error" role="alert">{{ form_errors(registrationForm.email.second) }}</div>{% endif %}
+                {{ form_widget(registrationForm.email.first) }}
+                {{ form_widget(registrationForm.email.second) }}
+                <p>{{ 'REGISTER_CHECK_EMAIL'|trans|raw }}</p>
+                {% if form_errors(registrationForm.name) is not empty %}<div class="error" role="alert">{{ form_errors(registrationForm.name) }}</div>{% endif %}
+                {{ form_widget(registrationForm.name) }}
+                {% if form_errors(registrationForm.name) is not empty %}<div class="error" role="alert">{{ form_errors(registrationForm.surname) }}</div>{% endif %}
+                {{ form_widget(registrationForm.surname) }}
+
+                {{ form_widget(registrationForm.plainPassword.first) }}
+                {{ form_widget(registrationForm.plainPassword.second) }}
+                {% if form_errors(registrationForm.plainPassword.first) is not empty %}
+                    <div class="error" role="alert">{{ form_errors(registrationForm.plainPassword.first) }}</div>
+                {% endif %}
+                {% if form_errors(registrationForm.plainPassword.second) is not empty %}
+                    <div class="error" role="alert">{{ form_errors(registrationForm.plainPassword.second) }}</div>
+                {% endif %}
+
+                <hr>
+                <p>{{ 'REGISTER_FORM_AGREE_TEXT'|trans|raw }}</p>
+                <b>{{ form_row(registrationForm.agreeTerms) }}</b>
+                <hr>
+                <button type="submit" class="btn">{{ 'REGISTER_CTA'|trans }}</button>
+                {{ 'REGISTER_BACK'|trans|raw }}
+            {{ form_end(registrationForm) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('public') }}
+{% endblock %}

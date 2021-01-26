@@ -1,0 +1,10 @@
+{% if item.id is not null %}
+    <form id="change-{{ item.id }}" style="display:inline" method="post" action="{{ path('admin_user_change_role', {'id': item.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('change' ~ item.id) }}">
+        <a class="btn {% if isAdmin %}btn-primary{% else %}btn-danger{% endif %} btn-sm" title="{% if isAdmin %}Rendi utente{% else %}Rendi admin{% endif %}" href="javascript:void(0)"
+            onclick="changeRole({{ item.id }},'{{ item.name }} {{ item.surname }}',{{ isAdmin }})">
+            {% if isAdmin %}Rendi utente{% else %}Rendi admin{% endif %}
+            <i class="fa {% if isAdmin %}fa-user-minus{% else %}fa-user-plus{% endif %}"></i>
+        </a>
+    </form>
+{% endif %}

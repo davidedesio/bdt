@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('public') }}
+{% endblock %}
+
+{% block title %}{{ 'RESET_PASSWORD_CTA'|trans }}{% endblock %}
+
+{% block body %}
+
+    <a class="login-logo-image" href="/">
+        <img src="assets/img/0-logo-bianco.png" alt="alternative">
+        <span class="beta-icon">Beta</span>
+    </a>
+
+    <div id="section-auth" style="height:100%">
+
+        <div class="login-block">
+            {{ form_start(resetForm) }}
+
+                {{ form_label(resetForm.plainPassword.first) }}
+                {{ form_widget(resetForm.plainPassword.first) }}
+
+                {{ form_label(resetForm.plainPassword.second) }}
+                {{ form_widget(resetForm.plainPassword.second) }}
+
+                {% if form_errors(resetForm.plainPassword.first) is not empty %}
+                    <div class="error" role="alert">{{ form_errors(resetForm.plainPassword.first) }}</div>
+                {% endif %}
+                {% if form_errors(resetForm.plainPassword.second) is not empty %}
+                    <div class="error" role="alert">{{ form_errors(resetForm.plainPassword.second) }}</div>
+                {% endif %}
+
+                <button class="btn btn-primary">{{ 'RESET_PASSWORD_CTA'|trans }}</button>
+                {{ 'RESET_PASSWORD_REQUEST_BACK'|trans|raw }}
+            {{ form_end(resetForm) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('public') }}
+{% endblock %}

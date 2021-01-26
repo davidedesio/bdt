@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block body %}
+
+    {% include('restricted/commons/listing-notifications.html.twig') %}
+    {% include('restricted/commons/offcanvas-menu-right.html.twig') %}
+
+    <div id="main" class="main-content">
+        {% include 'restricted/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0 d-none d-lg-block">
+                    {% include('restricted/activity/partials/next-activity.html.twig') %}
+                    <hr class="my-4">
+                    {% include('restricted/user-profile/partials/card.profile.html.twig') %}
+                </div>
+                <div class="col-xl-8 order-xl-1">
+
+                    <!-- Preloader -->
+                    {% include('public/commons/spinner.html.twig') %}
+                    <!-- end of preloader -->
+
+                    {% include('restricted/activity/partials/detail.html.twig') %}
+
+                    {% include('restricted/activity/partials/detail-people-involved.html.twig') %}
+
+                    {% include('restricted/activity/partials/detail-comments.html.twig') %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'restricted/commons/footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+    {% include('restricted/activity/show.scripts.html.twig') %}
+{% endblock %}

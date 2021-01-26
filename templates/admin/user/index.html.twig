@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block title %}User index{% endblock %}
+
+
+{% set order = app.request.query.all["order"] is defined ? app.request.query.all["order"]:"" %}
+{% set search = app.request.query.all["search"] is defined ? app.request.query.all["search"]:"" %}
+
+{% block body %}
+
+    {% include('admin/commons/offcanvas-menu-right.html.twig') %}
+    <div id="main" class="main-content">
+
+        {% include 'admin/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <div class="container-fluid mt--7">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>{{ 'USERS'|trans }}</h1>
+                        </div>
+                        <div class="col-lg-2">
+                            <a style="float:right" class="btn btn-success" href="{{ path('admin_user_new') }}">{{ 'USER_INSERT_CTA'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row" style="margin-bottom:20px">
+                        <div class="col-lg-4 mt-2">
+                            <label>Ordina da</label>
+                            <br>
+                            <select id="order" class="form-control form-control-alternative">
+                                <option {% if order=="createTimestamp_desc"%}selected{% endif%} value="createTimestamp_desc">Più recente</option>
+                                <option {% if order=="surname_asc"%}selected{% endif%} value="surname_asc">Cognome ASC</option>
+                                <option {% if order=="surname_desc"%}selected{% endif%} value="surname_desc">Cognome DESC</option>
+                                <option {% if order=="fiscalCode_asc"%}selected{% endif%} value="fiscalCode_asc">Codice fiscale ASC</option>
+                                <option {% if order=="fiscalCode_desc"%}selected{% endif%} value="fiscalCode_desc">Codice fiscale DESC</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 mt-2"></div>
+                        <div class="col-lg-4 mt-2">
+                            <label>Cerca per cognome</label>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input style="display:inline" class="form-control form-control-alternative" id="search" name="search" value="{{ search }}">
+                                </div>
+                                <div class="col-lg-4">
+                                    <a href="javascript:void(0)" id="search-button" class="btn btn-success btn-block">Cerca</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>{{ 'EMAIL'|trans }}</th>
+                                <th>{{ 'SURNAME'|trans }} {{ 'NAME'|trans }}</th>
+                                <th>Spese</th>
+                                <th>Ricevute</th>
+                                <th>Credito</th>
+                                <th>{{ 'FISCAL_CODE'|trans }}</th>
+                                <th>{{ 'ADDRESS'|trans }}</th>
+                                <th>{{ 'BIRTH_DATE'|trans }}</th>
+                                <th>{{ 'PHONE'|trans }}</th>
+                                <th>Ruolo</th>
+                                <th>Stato</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in items %}
+                            {% set isAdmin = false %}
+                            {% for role in item.roles %}
+                                {% if role == "ROLE_ADMIN" %}
+                                    {% set isAdmin = true %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr>
+                                <td class="highlight"><b>{{ item.email }}</b></td>
+                                <td>{{ item.surname }} {{ item.name }}</td>
+                                <td>{{ statistics[item.id].transactions.sent }} {% if statistics[item.id].transactions.sent==1 %}{{ 'UNIT'|trans }}{% else %}{{ 'UNITS'|trans }}{% endif %}</td>
+                                <td>{{ statistics[item.id].transactions.received }} {% if statistics[item.id].transactions.received==1 %}{{ 'UNIT'|trans }}{% else %}{{ 'UNITS'|trans }}{% endif %}</td>
+                                <td class="highlight"><b>{{ statistics[item.id].transactions.credit }} {% if statistics[item.id].transactions.credit==1 %}{{ 'UNIT'|trans }}{% else %}{{ 'UNITS'|trans }}{% endif %}</b></td>
+                                <td>{{ item.fiscalCode }}</td>
+                                <td>{{ item.address }} {{ item.city }} {{ item.country }} {{ item.zipCode }}</td>
+                                <td>{{ item.birthDate ? item.birthDate|date('Y-m-d') : '' }}</td>
+                                <td>{{ item.phone }}</td>
+                                <td>
+                                    {{ isAdmin?"Admin":"Utente" }}
+                                    &nbsp;
+                                    {% include('admin/user/_change_role_form.html.twig') %}
+                                </td>
+                                <td>
+                                    {{ item.status==0?"In attesa":"" }}
+                                    {{ item.status==1?"Abilitato":"" }}
+                                    {{ item.status==2?"Disabilitato":"" }}
+                                    &nbsp;
+                                    {% if item.status==0 or item.status==2 %}
+                                        {% include('admin/user/_enable_form.html.twig') %}
+                                    {% endif %}
+                                    {% if item.status==1  %}
+                                        {% include('admin/user/_disable_form.html.twig') %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-sm" href="{{ path('admin_user_edit', {'id': item.id}) }}">Modifica <i class="fa fa-edit"></i></a>
+                                    {% include('admin/user/_delete_form.html.twig') %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>Nessun record</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <div class="records">Da {{ offset?offset:1 }} a {{ offset+limit }} di {{ total }}</div>
+                        {% if page!=0 %}
+                            <a href="{{ path('admin_user_index',{'page':page-1,'order':order,'search':search}) }}" class="page"><i class="fa fa-chevron-left"></i></a>
+                        {% endif %}
+                            <a href="{{ path('admin_user_index',{'page':page,'order':order,'search':search}) }}" class="page">{{ page+1 }}</a>
+                        {% if page!=(pages-1)%}
+                            <a href="{{ path('admin_user_index',{'page':page+1,'order':order,'search':search}) }}" class="page"><i class="fa fa-chevron-right"></i></a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% include 'restricted/commons/footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+    <script>
+
+        $("#order").change(function(){
+            var order = $(this).val();
+            window.location.href = "{{ (path('admin_user_index',{'search':search}))|raw }}&order="+order;
+        })
+
+        $("#search-button").click(function(){
+            var search = $("#search").val();
+            window.location.href = "{{ (path('admin_user_index',{'order':order}))|raw }}&search="+search;
+        });
+
+        $(".table").dataTable({
+            paging:false,
+            searching: false,
+            ordering:  false,
+            info: false
+        });
+
+        var del = function(id,user){
+
+            var box = new jBox('Confirm', {
+                title: "{{'USER_DELETE_QUESTION'|trans}} "+user+ '?',
+                content: "{{ 'USER_DELETE_CAPTION'|trans }}",
+                confirm: function(){
+                    $("#delete-"+id).submit();
+                },
+                confirmButton: "{{ 'CONFIRM'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        }
+
+        var enable = function(id,user){
+
+            var box = new jBox('Confirm', {
+                title: "{{'USER_ENABLE_QUESTION'|trans}} "+user+ '?',
+                content: "{{ 'USER_ENABLE_CAPTION'|trans }}",
+                confirm: function(){
+                    $("#enable-"+id).submit();
+                },
+                confirmButton: "{{ 'USER_ENABLE_CTA'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        }
+
+        var disable = function(id,user){
+
+            var box = new jBox('Confirm', {
+                title: "{{'USER_DISABLE_QUESTION'|trans}} "+user+ '?',
+                content: "{{ 'USER_DISABLE_CAPTION'|trans }}",
+                confirm: function(){
+                    $("#disable-"+id).submit();
+                },
+                confirmButton: "{{ 'USER_DISABLE_CTA'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        }
+
+        var changeRole = function(id,user,isAdmin){
+
+            var title = isAdmin?"{{'USER_CHANGE_ROLE_MINUS_QUESTION'|trans}} ":"{{'USER_CHANGE_ROLE_PLUS_QUESTION'|trans}} ";
+            var content = isAdmin?"{{ 'USER_CHANGE_ROLE_MINUS_CAPTION'|trans }}":"{{ 'USER_CHANGE_ROLE_PLUS_CAPTION'|trans }}";
+            var box = new jBox('Confirm', {
+                title: title+user+ '?',
+                content: content,
+                confirm: function(){
+                    $("#change-"+id).submit();
+                },
+                confirmButton: "{{ 'CONFIRM'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!-- Address -->
+<div class="row align-items-center">
+    <div class="col-8">
+        <h6 class="heading-small text-muted mb-0">{{ 'PROFILE_PAGE_SUBTITLE_3'|trans }}</h6>
+        <p class="profile-hint">{{ 'PROFILE_PAGE_ADDRESS_HINT'|trans }}</p>
+    </div>
+    <div class="col-4 text-right">
+        <a href="javascript:void(0)" class="btn btn-sm btn-success save-user">{{ 'PROFILE_PAGE_SAVE'|trans }}</a>
+    </div>
+</div>
+<div class="pl-lg-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'ADDRESS'|trans }}</label>
+                {{ form_row(form.address, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'CITY'|trans }}</label>
+                {{ form_row(form.city, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group focused">
+                <label class="form-control-label">{{ 'STATE'|trans }}</label>
+                {{ form_row(form.country, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="form-control-label">{{ 'ZIP_CODE'|trans }}</label>
+                {{ form_row(form.zip_code, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+            </div>
+        </div>
+    </div>
+</div>

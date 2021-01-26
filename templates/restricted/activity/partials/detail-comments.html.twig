@@ -1,0 +1,22 @@
+<hr class="my-4">
+<div class="activity card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">
+                    {{ 'ACTIVITY_COMMENTS_TITLE'|trans }}
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div style="padding:20px">{{ 'ACTIVITY_COMMENTS_PRIVACY'|trans|raw }}</div>
+        <div id="listing-comments">
+            {% include('restricted/activity/partials/listing-comments.html.twig') %}
+        </div>
+        <hr>
+        {% include('restricted/activity/partials/insert-comment.html.twig') %}
+
+        <input type="hidden" id="since" name="since" value="{{ sinceCommentId }}"/>
+    </div>
+</div>

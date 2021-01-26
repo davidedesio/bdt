@@ -1,0 +1,45 @@
+<script>
+
+    let getRoundedDate = (minutes, d=new Date()) => {
+
+        let ms = 1000 * 60 * minutes; // convert minutes to ms
+        let roundedDate = new Date(Math.round(d.getTime() / ms) * ms);
+
+        return roundedDate
+    }
+
+    $("#activity_date").datepicker({
+        minDate: 0,
+        dateFormat: 'dd/mm/yy'
+    }).datepicker('setDate', new Date());
+
+    $('#activity_time').timepicker({
+        timeFormat: 'H:i',
+        scrollDefault: 'now'
+    }).timepicker('setTime', getRoundedDate(30));
+
+    $('#activity_type_filter').change(function(){
+        var activityTypeFilter = $(this).val();
+        window.location.href="{{ (path('app_activity',{'user':userFilter,'category':activityCategoryFilter,'filters':1}))|raw }}&type="+activityTypeFilter;
+    })
+
+    $('#activity_category_filter').change(function(){
+        var activityCategoryFilter = $(this).val();
+         window.location.href="{{ (path('app_activity',{'user':userFilter,'type':activityTypeFilter,'filters':1}))|raw }}&category="+activityCategoryFilter;
+
+    })
+
+    $("#activity_user_filter").change(function(){
+        var userFilter = $(this).val();
+        window.location.href="{{ (path('app_activity',{'type':activityTypeFilter,'category':activityCategoryFilter,'filters':1}))|raw }}&user="+userFilter;
+    })
+
+    $("#remove-filters").click(function(){
+        window.location.href="{{ path('app_activity') }}";
+    })
+
+
+    $("#activity_description").on("click focus touchstart",function(){
+        $("#activity_insert_body").slideDown();
+    })
+</script>

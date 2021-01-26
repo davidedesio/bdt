@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block title %}{{ 'ACTIVITIES'|trans }}{% endblock %}
+
+{% set order = app.request.query.all["order"] is defined ? app.request.query.all["order"]:"" %}
+{% set accepted = app.request.query.all["accepted"] is defined ? app.request.query.all["accepted"]:"" %}
+{% set search = app.request.query.all["search"] is defined ? app.request.query.all["search"]:"" %}
+
+{% block body %}
+
+    {% include('admin/commons/offcanvas-menu-right.html.twig') %}
+    <div id="main" class="main-content">
+
+        {% include 'admin/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <div class="container-fluid mt--7">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>{{ 'ACTIVITIES'|trans }}</h1>
+                        </div>
+                        <div class="col-lg-2">
+                            <a style="float:right" class="btn btn-success" href="{{ path('admin_activity_new') }}">{{ 'ACTIVITY_INSERT_CTA'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row" style="margin-bottom:20px">
+                        <div class="col-lg-4 mt-2">
+                            <label>{{ 'FROM_DATE'|trans }}</label>
+                            <br>
+                            <input id="date_from" name="date_from" style="display:inline" class="form-control form-control-alternative" value="{{ date_from }}">
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <label>{{ 'TO_DATE'|trans }}</label>
+                            <br>
+                            <input id="date_to" name="date_to" style="display:inline" class="form-control form-control-alternative" value="{{ date_to }}">
+                        </div>
+
+                        <div class="col-lg-4 mt-2">
+                            <label>Vedi&nbsp;</label>
+                            <br>
+                            <select id="accepted" class="form-control form-control-alternative">
+                                <option {% if accepted=='all'%}selected{% endif%} value="all">Tutte le attività</option>
+                                <option {% if accepted=='yes'%}selected{% endif%} value="yes">Attività assegnate</option>
+                                <option {% if accepted=='no'%}selected{% endif%} value="no">Attività non ancora assegnate</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="margin-bottom:20px">
+                        <div class="col-lg-4 mt-2">
+                            <label>Ordina per&nbsp;</label>
+                            <br>
+                            <select id="order" class="form-control form-control-alternative">
+                                <option {% if order=='date_asc'%}selected{% endif%} value="date_asc">{{ 'ACTIVITY_DATE_LABEL'|trans }} ASC</option>
+                                <option {% if order=='date_desc'%}selected{% endif%} value="date_desc">{{ 'ACTIVITY_DATE_LABEL'|trans }} DESC</option>
+                                <option {% if order=='created_asc'%}selected{% endif%} value="created_asc">{{ 'ACTIVITY_CREATED_BY'|trans }} ASC</option>
+                                <option {% if order=='created_desc'%}selected{% endif%} value="created_desc">{{ 'ACTIVITY_CREATED_BY'|trans }} DESC</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 mt-2"></div>
+                        <div class="col-lg-4 mt-2">
+                            <label>Cerca per cognome</label>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input style="display:inline" class="form-control form-control-alternative" id="search" name="search" value="{{ search }}">
+                                </div>
+                                <div class="col-lg-4">
+                                    <a href="javascript:void(0)" id="search-button" class="btn btn-success btn-block">Cerca</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table"  style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>{{ 'ACTIVITY_DATE_LABEL'|trans }}</th>
+                                <th>{{ 'ACTIVITY_VALUE_ESTIMATED'|trans }}</th>
+                                <th>{{ 'ACTIVITY_TYPE'|trans }}</th>
+                                <th>{{ 'ACTIVITY_CATEGORY'|trans }}</th>
+                                <th>{{ 'ACTIVITY_CREATED_BY'|trans }}</th>
+                                <th>{{ 'ACTIVITY_CREATED_WHEN'|trans }}</th>
+                                <th>{{ 'ACTIVITY_ACCEPTED'|trans }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>
+                                    {{ item.date ? item.date|date('Y-m-d') : '' }}
+                                    {{ item.time ? item.time|date('H:i') : '' }}
+                                </td>
+                                <td>{{ item.estimatedValue }}</td>
+                                <td>{{ item.type.nameIT }}</td>
+                                <td>{{ item.category.nameIT }}</td>
+                                <td>{{item.createUser.surname}} {{ item.createUser.name}}</td>
+                                <td>{{ item.createTimestamp ? item.createTimestamp|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{% if item.acceptedUser is not null %}{{item.acceptedUser.surname}} {{ item.acceptedUser.name}}{% endif %}</td>
+                                <td class="actions">
+                                    <a class="btn btn-primary btn-sm" title="Mostra sul sito" target="_blank" href="{{ path('app_activity_detail',{id:item.id}) }}">Mostra <i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-success btn-sm" title="Modifica" href="{{ path('admin_activity_edit', {'id': item.id}) }}">Modifica <i class="fa fa-edit"></i></a>
+                                    {{ include('admin/activity/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>Nessun record</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <div class="records">Da {{ offset?offset:1 }} a {{ offset+limit }} di {{ total }}</div>
+                        {% if page!=0 %}
+                            <a href="{{ path('admin_activity_index',{'page':page-1,'date_from':date_from,'date_to':date_to,'order':order,'accepted':accepted,'search':search}) }}" class="page"><i class="fa fa-chevron-left"></i></a>
+                        {% endif %}
+                            <a href="{{ path('admin_activity_index',{'page':page,'date_from':date_from,'date_to':date_to,'order':order,'accepted':accepted,'search':search}) }}" class="page">{{ page+1 }}</a>
+                        {% if page!=(pages-1)%}
+                            <a href="{{ path('admin_activity_index',{'page':page+1,'date_from':date_from,'date_to':date_to,'order':order,'accepted':accepted,'search':search}) }}" class="page"><i class="fa fa-chevron-right"></i></a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'restricted/commons/footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+    <script>
+
+        $("#date_from").datepicker({
+            minDate: 0,
+            dateFormat: 'dd/mm/yy'
+        }).change(function(){
+            var date_from = $(this).val();
+            window.location.href = "{{ (path('admin_activity_index',{'date_to':date_to,'order':order,'accepted':accepted,'search':search}))|raw }}&date_from="+date_from;
+        });
+
+        {% if date_from is empty %}
+            $("#date_from").datepicker('setDate', new Date());
+        {% endif %}
+
+        $("#date_to").datepicker({
+            minDate: 0,
+            dateFormat: 'dd/mm/yy'
+        }).change(function(){
+            var date_to = $(this).val();
+            window.location.href = "{{ (path('admin_activity_index',{'date_from':date_from,'order':order,'accepted':accepted,'search':search}))|raw }}&date_to="+date_to;
+        });;
+
+        $("#order").change(function(){
+            var order = $(this).val();
+            window.location.href = "{{ (path('admin_activity_index',{'date_from':date_from,'date_to':date_to,'accepted':accepted,'search':search}))|raw }}&order="+order;
+        })
+
+        $("#accepted").change(function(){
+            var accepted = $(this).val();
+            window.location.href = "{{ (path('admin_activity_index',{'date_from':date_from,'date_to':date_to,'order':order,'search':search}))|raw }}&accepted="+accepted;
+        })
+
+        $("#search-button").click(function(){
+            var search = $("#search").val();
+            window.location.href = "{{ (path('admin_activity_index',{'date_from':date_from,'date_to':date_to,'order':order,'accepted':accepted}))|raw }}&search="+search;
+        });
+
+        $(".table").dataTable({
+            paging:false,
+            searching: false,
+            ordering:  false,
+            info: false
+        });
+
+        var del = function(id){
+
+            var box = new jBox('Confirm', {
+                title: "{{'ACTIVITY_DELETE_QUESTION'|trans}}",
+                content: "{{ 'ACTIVITY_DELETE_CAPTION'|trans }}",
+                confirm: function(){
+                    $("#delete-"+id).submit();
+                },
+                confirmButton: "{{ 'CONFIRM'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        }
+
+
+    </script>
+{% endblock %}

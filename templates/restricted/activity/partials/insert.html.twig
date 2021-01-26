@@ -1,0 +1,60 @@
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-12">
+                {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-lg'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="display:none" id="activity_insert_body">
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_TYPE'|trans }}</label>
+                        {{ form_widget(form.type, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_CATEGORY'|trans }}</label>
+                        {{ form_widget(form.category, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_LOCATION_LABEL'|trans }}</label>
+                        {{ form_widget(form.location, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_DATE_LABEL'|trans }}</label>
+                        {{ form_widget(form.date, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_TIME_LABEL'|trans }}</label>
+                        {{ form_widget(form.time, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_VALUE_ESTIMATED'|trans }}</label>
+                        {{ form_widget(form.estimated_value, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8"></div>
+                <div class="col-lg-4">
+                    <div class="form-group focused">
+                        <button class="btn btn-success btn-lg btn-block">{{ 'ACTIVITY_INSERT_CTA'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>

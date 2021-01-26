@@ -1,0 +1,27 @@
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">{{ 'ACTIVITY_NEXT'|trans }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {% if nextActivity is defined and nextActivity is not null %}
+            <a href="{{ path('app_activity_detail',{id:nextActivity.id}) }}">
+                La tua prossima attività é <b>"{{ nextActivity.type.nameIT }} {{ nextActivity.category.nameIT|lower }}"</b>
+                di {{ nextActivity.createUser.name }} {{ nextActivity.createUser.surname }}
+                prevista
+                {{ 'ACTIVITY_DATE'|trans|lower}}&nbsp;
+                {{ nextActivity.date|date("d/m/y") }}&nbsp;
+                {% if nextActivity.time is not null %}
+                    {{ 'ACTIVITY_HOUR'|trans }}
+                    {{ nextActivity.time|date("H:i") }}
+                {% endif %}
+                svolta da {{ nextActivity.acceptedUser.name }} {{ nextActivity.acceptedUser.surname }}
+            </a>
+        {% else %}
+            {{ 'ACTIVITY_NEXT_EMPTY'|trans|raw }}
+        {% endif %}
+    </div>
+</div>

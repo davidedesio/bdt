@@ -1,0 +1,9 @@
+<h1>{{ 'RESET_PASSWORD_EMAIL_TITLE'|trans }}</h1>
+
+<p>{{ 'RESET_PASSWORD_EMAIL_CAPTION'|trans }}</p>
+
+<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+
+<p>{{ 'RESET_PASSWORD_EMAIL_EXPIRING'|trans}} {{ tokenLifetime|date('g') }} {{ 'RESET_PASSWORD_EMAIL_EXPIRING_UNIT'|trans }}</p>
+
+<p>{{ 'RESET_PASSWORD_EMAIL_CLOSING'|trans }}</p>

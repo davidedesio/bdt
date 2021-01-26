@@ -1,0 +1,36 @@
+<!-- Top navbar -->
+<nav class="navbar navbar-top navbar-dark" id="navbar-main">
+    <div class="container-fluid mb-5">
+        <!-- Brand -->
+        <p>
+            <a class="logo-image" href="/">
+                <img src="/assets/img/0-logo-bianco.png" alt="alternative">
+                <span class="beta-icon">Beta</span>
+            </a>
+        </p>
+        <!-- Form
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+            <div class="form-group mb-0">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search" type="text">
+                </div>
+            </div>
+        </form>
+         -->
+        {% include 'restricted/commons/avatar.html.twig' %}
+    </div>
+    <div class="container-fluid">
+        <div class="user-navbar">
+
+            <a {% if 'activity' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_activity') }}"><i class="fa fa-fw fa-home"></i>&nbsp;{{'USER_NAVBAR_1'|trans}}</a>
+            <a {% if 'calendar' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_calendar') }}"><i class="fa fa-fw fa-calendar"></i>&nbsp;{{'USER_NAVBAR_2'|trans}}</a>
+            <a {% if 'leaderboards' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_leaderboards') }}"><i class="fa fa-fw fa-thumbs-up"></i>&nbsp;{{'USER_NAVBAR_7'|trans}}</a>
+
+        </div>
+    </div>
+</nav>
+
+

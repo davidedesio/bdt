@@ -1,0 +1,33 @@
+<section class="cd-timeline js-cd-timeline">
+
+    {% include('restricted/activity/partials/listing-header.html.twig') %}
+
+    {% if (activities|length)>0 %}
+        <div class="container max-width-lg cd-timeline__container">
+            {% for activity in activities %}
+                {% include('restricted/activity/partials/timeline-card.html.twig') %}
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <div class="records">Da {{ offset?offset:1 }} a {{ offset+limit }} di {{ total }}</div>
+
+            {% if page!=0 %}
+                <a href="{{ path('app_activity',{'page':page-1,'user':userFilter,'type':activityTypeFilter,'category':activityCategoryFilter}) }}" class="page"><i class="fa fa-chevron-left"></i></a>
+            {% endif %}
+            <a href="{{ path('app_activity',{'page':page,'user':userFilter,'type':activityTypeFilter,'category':activityCategoryFilter}) }}" class="page">{{ page+1 }}</a>
+            {% if page!=(pages-1)%}
+                <a href="{{ path('app_activity',{'page':page+1,'user':userFilter,'type':activityTypeFilter,'category':activityCategoryFilter}) }}" class="page"><i class="fa fa-chevron-right"></i></a>
+            {% endif %}
+        </div>
+
+    {% else %}
+        <hr>
+        <div class="text-center">
+            <h2>{{ 'ACTIVITY_LISTING_REMOVE_FILTERS_PRE'|trans }}</h2>
+            <br>
+            <a id="remove-filters" href="javascript:void(0)" class="btn btn-success">{{ 'ACTIVITY_LISTING_REMOVE_FILTERS_CTA'|trans }}</a>
+        </div>
+    {% endif %}
+
+</section> <!-- cd-timeline -->

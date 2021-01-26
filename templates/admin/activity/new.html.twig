@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block title %}New Activity{% endblock %}
+
+{% block body %}
+
+    {% include('admin/commons/offcanvas-menu-right.html.twig') %}
+    <div id="main" class="main-content">
+
+        {% include 'admin/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <div class="container-fluid mt--7">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>{{ 'ACTIVITY_INSERT_CTA'|trans }}</h1>
+                        </div>
+                        <div class="col-lg-2">
+                             <a class="btn btn-primary" href="{{ path('admin_activity_index') }}">{{ 'BACK'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ include('admin/activity/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+    <script>
+
+        let getRoundedDate = (minutes, d=new Date()) => {
+
+            let ms = 1000 * 60 * minutes; // convert minutes to ms
+            let roundedDate = new Date(Math.round(d.getTime() / ms) * ms);
+
+            return roundedDate
+        }
+
+        $("#activity_for_admin_createUser").selectize({
+            maxItems:1
+        });
+
+        $("#activity_for_admin_date").datepicker({
+            minDate: 0,
+            dateFormat: 'dd/mm/yy'
+        }).datepicker('setDate', new Date());
+
+        $('#activity_for_admin_time').timepicker({
+            timeFormat: 'H:i',
+            scrollDefault: 'now'
+        }).timepicker('setTime', getRoundedDate(30));
+    </script>
+{% endblock %}

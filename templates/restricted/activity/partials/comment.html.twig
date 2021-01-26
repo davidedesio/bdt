@@ -1,0 +1,16 @@
+<div id="comment-{{ comment.id }}" class="speech-bubble-container {% if comment.createUser == user %}right"{% else %}left{% endif %}">
+    <div class="speech-bubble">
+        <span>{{ comment.createUser.name }} {{ comment.createUser.surname }}</span>
+        <!--
+        <span class="avatar avatar-sm rounded-circle">
+            <div class="rounded-circle profile-picture small" style="background:url({# comment.createUser.picture #}"></div>
+        </span>
+        -->
+        <h4>{{ comment.createTimestamp|date("d/m/Y H:i") }}</h4>
+        <div>{{ comment.comment }}</div>
+        {% if is_granted('ROLE_ADMIN') and app.request.get('_route') == 'admin_activity_edit'  %}
+            <a class="delete-comment" href="javascript:void(0)" onclick="delComment({{ comment.id }})"><i class="fa fa-trash"></i></a>
+        {% endif %}
+    </div>
+</div>
+<div style="clear:both"></div>

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('public') }}
+ {% endblock %}
+
+{% block body %}
+
+    <!-- Preloader -->
+	{% include('public/commons/spinner.html.twig') %}
+    <!-- end of preloader -->
+
+    <!-- Navigation -->
+    {% include('public/commons/menu.html.twig') %}
+
+    <!-- Head -->
+    {% include('public/home/partials/head.html.twig') %}
+
+    <!-- Section-2 -->
+    {% include('public/home/partials/video.html.twig') %}
+
+    <!-- Section-3 -->
+    {% include('public/home/partials/activities.html.twig') %}
+
+    <!-- Section-4 -->
+    {% include('public/home/partials/contact.html.twig') %}
+
+    <!-- Footer -->
+    {% include('public/commons/footer.html.twig') %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('public') }}
+{% endblock %}

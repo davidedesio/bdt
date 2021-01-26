@@ -1,0 +1,23 @@
+<!-- Top Admin navbar -->
+<nav class="navbar navbar-top navbar-dark" id="navbar-main">
+    <div class="container-fluid mb-5">
+        <!-- Brand -->
+        <p>
+            <a class="logo-image" href="/">
+                <img src="/assets/img/0-logo-bianco.png" alt="alternative">
+                <span class="beta-icon">Beta</span>
+            </a>
+        </p>
+        {% include 'restricted/commons/avatar.html.twig' %}
+    </div>
+    <div class="container-fluid">
+        <div class="user-navbar">
+            <a {% if 'activity' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_activity_index') }}"><i class="fa fa-fw fa-home"></i>&nbsp;Attività</a>
+            <a {% if 'calendar' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_calendar') }}"><i class="fa fa-fw fa-calendar"></i>&nbsp;{{'USER_NAVBAR_2'|trans}}</a>
+            <a {% if 'user' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_user_index') }}"><i class="fa fa-fw fa-users"></i>&nbsp;Utenti</a>
+            <a {% if 'transaction' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_transaction_index') }}"><i class="fa fa-fw fa-list"></i>&nbsp;Transazioni</a>
+        </div>
+    </div>
+</nav>
+
+

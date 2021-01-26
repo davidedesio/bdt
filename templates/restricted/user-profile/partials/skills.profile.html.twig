@@ -1,0 +1,16 @@
+<div class="card card-profile shadow">
+    <div class="row align-items-center" style="margin-left: 10px;margin-top: 10px;margin-right: 20px;">
+        <div class="col-8">
+            <h6 class="heading-small text-muted mb-4">{{ 'PROFILE_PAGE_SUBTITLE_4'|trans }}</h6>
+        </div>
+        <div class="col-4 text-right">
+            <a href="javascript:void(0)" class="btn btn-sm btn-success save-user">{{ 'PROFILE_PAGE_SAVE'|trans }}</a>
+        </div>
+    </div>
+    <div class="card-body pt-0 pt-md-4">
+        <h3 class="text-center">Skills</h3>
+        <div class="text-left">
+            {{ form_widget(form.skills, {'attr': {'class': ''}}) }}
+        </div>
+    </div>
+</div>

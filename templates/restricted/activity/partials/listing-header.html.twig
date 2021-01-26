@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="display-2">{{ 'ACTIVITY_PAGE_LISTING_TITLE'|trans }}</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <select id="activity_type_filter" class="form-control">
+            <option value="">Filtra per tipologia</option>
+            {% for type in activityTypes %}
+                <option {% if activityTypeFilter is not null and activityTypeFilter==type.id %} selected {% endif%} value="{{ type.id }}">{{ type.nameIT }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-lg-4">
+        <select id="activity_category_filter" class="form-control">
+            <option value="">Filtra per categoria</option>
+            {% for cat in activityCategories %}
+                <option {% if activityCategoryFilter is not null and activityCategoryFilter==cat.id %} selected {% endif%} value="{{ cat.id }}">{{ cat.nameIT }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-lg-4">
+        <select id="activity_user_filter" class="form-control">
+            <option value="">Filtra per utente</option>
+            <option {% if userFilter is not null and userFilter==1 %} selected {% endif%} value="1">Le attività che ho creato</option>
+            <option {% if userFilter is not null and userFilter==2 %} selected {% endif%} value="2">Le attività create da altri</option>
+            <option {% if userFilter is not null and userFilter==3 %} selected {% endif%} value="3">Le attività per cui ti sei proposto</option>
+        </select>
+    </div>
+</div>

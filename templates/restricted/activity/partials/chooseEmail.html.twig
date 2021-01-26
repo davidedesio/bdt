@@ -1,0 +1,20 @@
+<h1>{{ chooseTitle }}</h1>
+
+<p>Puoi vedere <a href="{{ website }}{{ path('app_activity_detail',{id:activity.id}) }}">la tua attività cliccando qui</a></p>
+
+<p>Di seguito le informazioni dell'attività</p>
+<ul>
+    {% if activity.location is not null %}<li>Dove: {{ activity.location }}</li>{% endif %}
+    <li>Quando: {{ activity.date|date('d/m/Y') }} {{ activity.time|date('H:i') }}</li>
+    <li>Per quanto tempo: {{ activity.estimatedValue }} {{ 'UNITS'|trans }}}</li>
+    {% if activity.description %}<li>Descrizione: {{ activity.description }}</li>{% endif %}
+</ul>
+
+<p>Ecco aclune informazioni utili per contattare l'utente che hai scelto</p>
+<ul>
+    <li>Nome e cognome: {{ acceptedUser.name }} {{ acceptedUser.surname }}</li>
+    <li>Email: {{ acceptedUser.email }}</li>
+    {% if acceptedUser.phone is not null %}<li>Telefono: {{ acceptedUser.phone }}</li>{% endif %}
+</ul>
+
+

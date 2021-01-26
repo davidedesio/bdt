@@ -1,0 +1,10 @@
+{% if item.id is not null %}
+    <form id="enable-{{ item.id }}" style="display:inline" method="post" action="{{ path('admin_user_enable', {'id': item.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('enable' ~ item.id) }}">
+        <a class="btn btn-primary btn-sm" title="Abilita" href="javascript:void(0)"
+            onclick="enable({{ item.id }},'{{ item.name }} {{ item.surname }}')">
+            Abilita
+            <i class="fa fa-check-square"></i>
+        </a>
+    </form>
+{% endif %}

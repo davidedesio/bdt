@@ -1,0 +1,12 @@
+<a class="notification" href="{{ path('app_activity_detail',{id:notification.activity.id,notification:notification.id}) }}">
+    <div class="card shadow">
+        <div class="card-body">
+            <i class="fa fa-bell"></i>
+            <h3>{{ notification.message }}</h3>
+            {% if notification.activity is not null %}
+                Per l'attività <b>"{{ notification.activity.type.nameIT }} {{ notification.activity.category.nameIT|lower }}"</b>
+                di {{ notification.activity.createUser.name }} {{ notification.activity.createUser.surname }}
+            {% endif %}
+        </div>
+    </div>
+</a>

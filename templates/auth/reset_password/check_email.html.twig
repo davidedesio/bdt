@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('public') }}
+{% endblock %}
+
+{% block body %}
+
+    <a class="login-logo-image" href="/">
+        <img src="assets/img/0-logo-bianco.png" alt="alternative">
+        <span class="beta-icon">Beta</span>
+    </a>
+
+    <div id="section-auth" style="height:100%">
+
+        <div class="login-block">
+            <h1>{{ 'RESET_PASSWORD_CHECK_EMAIL_TITLE'|trans }}</h1>
+            <p><b>{{ 'RESET_PASSWORD_CHECK_EMAIL_CAPTION'|trans }}</b></p>
+            <p>{{ 'RESET_PASSWORD_CHECK_EMAIL_HINT'|trans }}</p>
+            <p><b class="bullet">1</b></p>
+            <p><b>{{ 'RESET_PASSWORD_CHECK_EMAIL_HINT_1'|trans}}</b></p>
+            <p><b class="bullet">2</b></p>
+            <p>{{ 'RESET_PASSWORD_CHECK_EMAIL_HINT_2_PREFIX'|trans  }} {{ tokenLifetime|date('g') }} {{ 'RESET_PASSWORD_CHECK_EMAIL_HINT_2_POSTFIX'|trans }}</p>
+            <p><b class="bullet">3</b></p>
+            <p>{{ 'RESET_PASSWORD_CHECK_EMAIL_HINT_3'|trans|raw  }}</p>
+            {{ 'RESET_PASSWORD_REQUEST_BACK'|trans|raw }}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('public') }}
+{% endblock %}

@@ -1,0 +1,33 @@
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">{{ 'LEADERBOARDS_PAGE_LISTING_SUBTITLE_0'|trans }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="points" style="width:100%">
+            <thead>
+            <tr>
+                <td>Posizione</td>
+                <td>Nome e Cognome</td>
+                <td>Punti per attività eseguite</td>
+                <td>Punti per attività richieste</td>
+                <td>Punti Totali</td>
+            </tr>
+            </thead>
+            <tbody>
+                {% for leaderboardPointsUser in leaderboardPointsUsers %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><b>{{ leaderboardPointsUser.name }} {{ leaderboardPointsUser.surname }}</b></td>
+                        <td>{{ leaderboardPointsUser.receivedPoints }}</td>
+                        <td>{{ leaderboardPointsUser.sentPoints }}</td>
+                        <td class="highlight dark"><b>{{ leaderboardPointsUser.receivedPoints+leaderboardPointsUser.sentPoints }}</b></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

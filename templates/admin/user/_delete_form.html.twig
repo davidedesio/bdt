@@ -1,0 +1,7 @@
+{% if item.id is not null %}
+    <form id="delete-{{ item.id }}" style="display:inline" method="post" action="{{ path('admin_user_delete', {'id': item.id}) }}">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+        <a class="btn btn-danger btn-sm" href="javascript:void(0)" onclick="del({{ item.id }},'{{ item.name }} {{ item.surname }}')">Elimina <i class="fa fa-trash"></i></a>
+    </form>
+{% endif %}

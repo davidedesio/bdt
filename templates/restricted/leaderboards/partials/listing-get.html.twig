@@ -1,0 +1,28 @@
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">{{ 'LEADERBOARDS_PAGE_LISTING_SUBTITLE_2'|trans }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="get" style="width:100%">
+            <thead>
+            <tr>
+                <td>Posizione</td>
+                <td>Nome e Cognome</td>
+                <td>Attività richieste</td>
+            </thead>
+            <tbody>
+            {% for leaderboardGetUser in leaderboardGetUsers %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><b>{{ leaderboardGetUser.name }} {{ leaderboardGetUser.surname }}</b></td>
+                    <td class="highlight dark"><b>{{ leaderboardGetUser.get }}</b></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

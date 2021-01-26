@@ -1,0 +1,27 @@
+<section class="cd-timeline js-cd-timeline">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="display-2">{{ 'ACTIVITY_TIMELINE_TITLE'|trans }}</h2>
+        </div>
+    </div>
+
+    <div class="container max-width-lg cd-timeline__container">
+        {% for activity in activities %}
+            {% include('restricted/activity/partials/timeline-card.html.twig') %}
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        <div class="records">Da {{ offset?offset:1 }} a {{ offset+limit }} di {{ total }}</div>
+
+        {% if page!=0 %}
+            <a href="{{ path('app_timeline',{'page':page-1}) }}" class="page"><i class="fa fa-chevron-left"></i></a>
+        {% endif %}
+        <a href="{{ path('app_timeline',{'page':page}) }}" class="page">{{ page+1 }}</a>
+        {% if page!=(pages-1)%}
+            <a href="{{ path('app_timeline',{'page':page+1}) }}" class="page"><i class="fa fa-chevron-right"></i></a>
+        {% endif %}
+    </div>
+
+</section> <!-- cd-timeline -->

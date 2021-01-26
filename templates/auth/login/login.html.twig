@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('public') }}
+{% endblock %}
+
+{% block body %}
+    <a class="login-logo-image" href="/">
+        <img src="assets/img/0-logo-bianco.png" alt="alternative">
+        <span class="beta-icon">Beta</span>
+    </a>
+
+    <div id="section-auth" style="height:100%">
+
+        <form action="{{ path('app_login') }}" method="post" class="login-block">
+
+            <a class="login-logo-image-mobile" href="/"><img src="assets/img/0-logo-bianco.png" alt="alternative"></a>
+
+            <h1>{{ 'LOGIN_TITLE'|trans }}</h1>
+            <p>{{ 'LOGIN_CAPTION'|trans|raw }}</p>
+
+            {% if error %}
+                <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <input placeholder="Email" type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+            <input placeholder="Password" type="password" id="password" name="_password"/>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <input type="hidden" name="_target_path" value="/restricted/activity"/>
+
+            {{ 'LOGIN_HINT_1'|trans|raw }}
+            {{ 'LOGIN_HINT_2'|trans|raw }}
+            {{ 'LOGIN_HINT_3'|trans|raw }}
+
+            <button type="submit">{{ 'LOGIN'|trans }}</button>
+            {{ 'LOGIN_BACK'|trans|raw }}
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('public') }}
+{% endblock %}

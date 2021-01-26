@@ -1,0 +1,65 @@
+.hourglass-wrapper {
+    font-size: 1.6rem;
+    background: #dad8d2;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9999;
+}
+
+.hourglass {
+    display: block;
+    background: #dad8d2;
+    margin: 3em auto;
+    width: 2em;
+    height: 4em;
+    -webkit-animation: hourglass 1s linear infinite;
+    animation: hourglass 1s linear infinite;
+}
+
+.outer {
+    fill: #18243a;
+}
+
+.middle {
+    fill: #dad8d2;
+}
+
+@-webkit-keyframes hourglass {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        box-shadow: inset #7788a2 0 0em 0 0, inset #dad8d2 0 -2em 0 0, inset #7788a2 0 -4em 0 0;
+    }
+    80% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        box-shadow: inset #7788a2 0 -2em 0 0, inset #dad8d2 0 -2em 0 0, inset #7788a2 0 -2em 0 0;
+    }
+    100% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        box-shadow: inset #7788a2 0 -2em 0 0, inset #dad8d2 0 -2em 0 0, inset #7788a2 0 -2em 0 0;
+    }
+}
+
+@keyframes hourglass {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        box-shadow: inset #7788a2 0 0em 0 0, inset #dad8d2 0 -2em 0 0, inset #7788a2 0 -4em 0 0;
+    }
+    80% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        box-shadow: inset #7788a2 0 -2em 0 0, inset #dad8d2 0 -2em 0 0, inset #7788a2 0 -2em 0 0;
+    }
+    100% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        box-shadow: inset #7788a2 0 -2em 0 0, inset #dad8d2 0 -2em 0 0, inset #7788a2 0 -2em 0 0;
+    }
+}

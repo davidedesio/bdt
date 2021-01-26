@@ -1,0 +1,12 @@
+<div id="offcanvas-menu-right" class="offcanvas right ">
+    <a class="close-button" href="javascript:void(0)" onclick="toggleOffcanvasMenuRight()"><i class="fa fa-times"></i></a>
+    <div class="vertical-menu">
+        <a {% if 'activity' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_activity_index') }}"><i class="fa fa-fw fa-home"></i>&nbsp;Attività</a>
+        <a {% if 'calendar' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_calendar') }}"><i class="fa fa-fw fa-calendar"></i>&nbsp;{{'USER_NAVBAR_2'|trans}}</a>
+        <a {% if 'user' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_user_index') }}"><i class="fa fa-fw fa-users"></i>&nbsp;Utenti</a>
+        <a {% if 'transaction' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_transaction_index') }}"><i class="fa fa-fw fa-list"></i>&nbsp;Transazioni</a>
+        <a href="{{ path('app_restricted') }}"><i class="fa fa-fw fa-sign-out-alt"></i> {{'USER_NAVBAR_GO_TO_RESTRICTED'|trans}}</a>
+        <a href="{{ path('app_admin') }}"><i class="fa fa-fw fa-sign-out-alt"></i> {{'USER_NAVBAR_GO_TO_ADMIN'|trans}}</a>
+        <a href="{{ path('app_logout') }}"><i class="fa fa-fw fa-sign-out-alt"></i> {{'USER_NAVBAR_6'|trans}}</a>
+    </div>
+</div>

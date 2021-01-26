@@ -1,0 +1,8 @@
+cd .dev/docker
+docker stop $(docker ps -aq)
+docker-compose build
+docker-compose up -d
+docker exec -it -u 1000 bdt_phpfpm composer install
+docker exec -it -u 1000 bdt_nodejs yarn install
+docker exec -it -u 1000 bdt_nodejs yarn encore dev
+open http://dev.bdtpavia.altervista.org:80

@@ -1,0 +1,15 @@
+<div id="offcanvas-menu-right" class="offcanvas right ">
+    <a class="close-button" href="javascript:void(0)" onclick="toggleOffcanvasMenuRight()"><i class="fa fa-times"></i></a>
+    <div class="vertical-menu">
+        <a {% if 'activity' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_activity') }}"><i class="fa fa-fw fa-home"></i>&nbsp;{{'USER_NAVBAR_1'|trans}}</a>
+        <a {% if 'calendar' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_calendar') }}"><i class="fa fa-fw fa-calendar"></i>&nbsp;{{'USER_NAVBAR_2'|trans}}</a>
+        <a {% if 'timeline' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_timeline') }}"><i class="fa fa-fw fa-list"></i>&nbsp;{{'USER_NAVBAR_3'|trans}}</a>
+        <a {% if 'credit' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_credit') }}"><i class="fa fa-fw fa-credit-card"></i>&nbsp;{{'USER_NAVBAR_4'|trans}}</a>
+        <a {% if 'user-profile' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('app_user_profile') }}"><i class="fa fa-fw fa-user"></i>&nbsp;{{'USER_NAVBAR_5'|trans}} </a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_restricted') }}"><i class="fa fa-fw fa-sign-out-alt"></i> {{'USER_NAVBAR_GO_TO_RESTRICTED'|trans}}</a>
+            <a href="{{ path('app_admin') }}"><i class="fa fa-fw fa-sign-out-alt"></i> {{'USER_NAVBAR_GO_TO_ADMIN'|trans}}</a>
+        {% endif %}
+        <a href="{{ path('app_logout') }}"><i class="fa fa-fw fa-sign-out-alt"></i> {{'USER_NAVBAR_6'|trans}}</a>
+    </div>
+</div>

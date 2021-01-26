@@ -1,0 +1,62 @@
+<div id="section-4" class="form-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="" style="color:black !important">
+                    <h2 style="color:black !important">{{ 'HOME_CONTACT_TITLE'|trans }}</h2>
+                    <p style="color:black !important; text-align:justify"><b>{{ 'HOME_CONTACT_CAPTION' |trans}}</b></p>
+                </div> <!-- end of text-container -->
+
+                <!-- Request Form -->
+                <div class="form-container" style="margin-top: 40px;">
+                    <form id="requestForm" data-toggle="validator" data-focus="false">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="rname" name="rname" required>
+                            <label class="label-control" for="rname">{{ 'HOME_CONTACT_FIELD_1'|trans }}</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control-input" id="remail" name="remail" required>
+                            <label class="label-control" for="remail">{{ 'HOME_CONTACT_FIELD_2'|trans }}</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="rphone" name="rphone" required>
+                            <label class="label-control" for="rphone">{{ 'HOME_CONTACT_FIELD_3'|trans }}</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control-select" id="rselect" required>
+                                <option class="select-option" value="" disabled selected>{{ 'HOME_CONTACT_FIELD_4'|trans }}</option>
+                                <option class="select-option" value="{{ activityCategories[0].nameIT }}">{{ activityCategories[0].nameIT }}</option>
+                                <option class="select-option" value="{{ activityCategories[1].nameIT }}">{{ activityCategories[1].nameIT }}</option>
+                                <option class="select-option" value="{{ activityCategories[2].nameIT }}">{{ activityCategories[2].nameIT }}</option>
+                                <option class="select-option" value="{{ activityCategories[3].nameIT }}">{{ activityCategories[3].nameIT }}</option>
+                                <option class="select-option" value="{{ activityCategories[4].nameIT }}">{{ activityCategories[4].nameIT }}</option>
+                                <option class="select-option" value="{{ activityCategories[5].nameIT }}">{{ activityCategories[5].nameIT }}</option>
+                                <option class="select-option" value="{{ activityCategories[6].nameIT }}">{{ activityCategories[6].nameIT }}</option>
+                            </select>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="rterms" value="Agreed-to-Terms" name="rterms" required style="color:black !important;width: 35px;height: 35px;">
+                            <div class="help-block with-errors"></div>
+                            <p style="text-align:left !important;color:black !important; font-weight: 600;">
+                                {{ 'HOME_CONTACT_TERMS'|trans }}
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control-submit-button">Invia</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="rmsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                </div> <!-- end of form-container -->
+                <!-- end of request form -->
+
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of form-1 -->
+<!-- end of request -->

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('public') }}
+{% endblock %}
+
+{% block body %}
+
+    <a class="login-logo-image" href="/">
+        <img src="/assets/img/0-logo-bianco.png" alt="alternative">
+        <span class="beta-icon">Beta</span>
+    </a>
+
+    <div id="section-auth" style="height:100%">
+
+        <div class="login-block">
+            {% if app.request.query.get("tbc") is not defined %}
+                <h1>{{ 'REGISTERED_TITLE'|trans }}</h1>
+                {% else %}
+                <h1>{{ 'REGISTERED_TITLE_2'|trans }}</h1>
+            {% endif %}
+            <p><b>{{ 'REGISTERED_CAPTION'|trans }}</b></p>
+            <p>{{ 'REGISTERED_HINT'|trans|raw }}</p>
+            {{ 'REGISTERED_BACK'|trans|raw }}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('public') }}
+{% endblock %}

@@ -1,0 +1,85 @@
+
+<hr class="my-4">
+<div class="activity card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">
+                    {% if activity.acceptedUser is not null %}
+                        {% if activity.type.id==1 %}
+                            {{ activity.createUser.name }} {{ activity.createUser.surname}} {{ 'ACTIVITY_ACCEPTED_AVAILABLE'|trans }}
+                        {% endif %}
+                        {% if activity.type.id==2 %}
+                            {{ activity.createUser.name }} {{ activity.createUser.surname}} {{ 'ACTIVITY_ACCEPTED_NEEDED'|trans }}
+                        {% endif %}
+                    {% else %}
+                        {% if activity.createUser.id == user.id %}
+                            {% if activity.type.id==1 %}
+                                {{ 'ACTIVITY_PEOPLE_AVALIABLE_ACCEPT'|trans }}
+                            {% endif %}
+                            {% if activity.type.id==2 %}
+                                {{ 'ACTIVITY_PEOPLE_NEEDED_ACCEPT'|trans }}
+                            {% endif %}
+                        {% else %}
+                            {% if activity.type.id==1 %}
+                                {{ 'ACTIVITY_PEOPLE_AVAILABLE'|trans }}
+                            {% endif %}
+                            {% if activity.type.id==2 %}
+                                {{ 'ACTIVITY_PEOPLE_NEEDED'|trans }}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {% if activity.acceptedUser is not null %}
+
+            <div class="row">
+                <div class="col-12">
+                    {% if activity.type.id==1 %}{% endif %}
+                    {% if activity.type.id==2 %}{% endif %}
+                    {{ activity.acceptedUser.name }} {{ activity.acceptedUser.surname }}
+                </div>
+            </div>
+
+        {% else %}
+            {% if activity.activityMatches is empty %}
+
+                <div class="row">
+                    <div class="col-12">
+                        {% if activity.type.id==1 %}
+                            {{ 'ACTIVITY_AVAILABLE_EMPTY'|trans }}
+                        {% endif %}
+                        {% if activity.type.id==2 %}
+                            {{ 'ACTIVITY_NEEDED_EMPTY'|trans }}
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% else %}
+
+                {% for match in activity.activityMatches %}
+                    <div class="row">
+                        <div class="col-6">
+                            {% if match.createUser.name is not null or match.createUser.surname is not null %}
+                                {{ match.createUser.name }} {{ match.createUser.surname }}
+                            {% else %}
+                                {{ match.createUser.email }}
+                            {% endif %}
+                        </div>
+                        <div class="col-6 text-right">
+                            {% if activity.createUser.id == user.id %}
+                                <button onclick="chooseUser({{ activity.id }},{{ activity.type.id }},{{ activity.estimatedValue }},{{ match.createUser.id }},'{{ match.createUser.name }} {{ match.createUser.surname }}')" class="btn btn-success btn-lg">{{ 'ACTIITY_ACCEPT_CTA'|trans }}</button>
+                            {% else %}
+                                {{ 'ACTIVITY_CHOOSE_WAITING'|trans }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

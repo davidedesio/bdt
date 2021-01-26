@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  nginx:
+    build:
+      dockerfile: ./nginx/Dockerfile
+      context: .
+      target: dev_nginx
+    container_name: bdt_nginx
+    ports:
+      - $HTTP_PORT:80
+      - $HTTPS_PORT:443
+    volumes:
+      - ../..:/var/www/html
+      - ./volumes/logs/nginx:/var/log/nginx
+
+  phpfpm:
+    build:
+      dockerfile: ./phpfpm/Dockerfile
+      context: .
+      target: dev_phpfpm
+    container_name: bdt_phpfpm
+    volumes:
+      - ../..:/var/www/html
+      - ~/.composer/cache:/home/local/.composer/cache
+
+  nodejs:
+    build:
+      dockerfile: ./nodejs/Dockerfile
+      context: .
+      target: dev_nodejs
+    container_name: bdt_nodejs
+    volumes:
+      - ../..:/home/node/app
+    command: sleep infinity
+
+  # MySQL local environment
+  mysql:
+    build:
+      dockerfile: ./mysql/Dockerfile
+      context: .
+      target: dev_mysql
+    container_name: bdt_mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./volumes/databases:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: bdt
+      MYSQL_USER: bdt
+      MYSQL_PASSWORD: bdt
+      MYSQL_ROOT_PASSWORD: root

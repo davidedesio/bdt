@@ -1,0 +1,10 @@
+{% if item.id is not null %}
+    <form id="disable-{{ item.id }}" style="display:inline" method="post" action="{{ path('admin_user_disable', {'id': item.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('disable' ~ item.id) }}">
+        <a class="btn btn-danger btn-sm" title="Disabilita" href="javascript:void(0)"
+            onclick="disable({{ item.id }},'{{ item.name }} {{ item.surname }}')">
+            Disabilita
+            <i class="fa fa-ban"></i>
+        </a>
+    </form>
+{% endif %}

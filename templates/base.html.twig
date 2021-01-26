@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Banca del Tempo">
+        <meta name="author" content="desio.davide@gmail.com">
+
+        <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
+        <meta property="og:site_name" content="Banca del Tempo" /> <!-- website name -->
+        <meta property="og:site" content="" /> <!-- website link -->
+        <meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
+        <meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+        <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+        <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+        <meta property="og:type" content="article" />
+
+        <!-- Website Title -->
+        <title>{{ 'BANK_NAME'|trans }} - {{ 'BANK_CLUSTER'|trans}}</title>
+
+        <!-- Favicon  -->
+        <link rel="icon" href="images/favicon.png">
+
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        {% block stylesheets %}{% endblock %}
+
+        <!-- Cookies -->
+        {# include('public/commons/cookie.banner.html.twig') #}
+
+    </head>
+    <body data-spy="scroll" data-target=".fixed-top">
+
+        {% block body %}{% endblock %}
+
+        <!-- Scripts -->
+        {% block javascripts %}{% endblock %}
+
+        <script>
+            var notificationsOpen = false;
+            function toggleNotifications() {
+                if(offcanvasMenuRightOpen) {
+                    document.getElementById("offcanvas-menu-right").style.width = "0";
+                    document.getElementById("main").style.marginLeft= "0";
+                    offcanvasMenuRightOpen=false;
+                }
+                if(!notificationsOpen){
+                    document.getElementById("notifications").style.width = "350px";
+                    notificationsOpen=true;
+                } else {
+                    document.getElementById("notifications").style.width = "0";
+                    document.getElementById("main").style.marginLeft= "0";
+                    notificationsOpen=false;
+                }
+            }
+            var offcanvasMenuRightOpen = false;
+            function toggleOffcanvasMenuRight(){
+                if(notificationsOpen){
+                    document.getElementById("notifications").style.width = "0";
+                    document.getElementById("main").style.marginLeft= "0";
+                    notificationsOpen=false;
+                }
+                if(!offcanvasMenuRightOpen){
+                    document.getElementById("offcanvas-menu-right").style.width = "350px";
+                    offcanvasMenuRightOpen=true;
+                } else {
+                    document.getElementById("offcanvas-menu-right").style.width = "0";
+                    document.getElementById("main").style.marginLeft= "0";
+                    offcanvasMenuRightOpen=false;
+                }
+            }
+        </script>
+    </body>
+</html>

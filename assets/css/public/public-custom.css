@@ -1,0 +1,94 @@
+.navbar-dark{
+  background:#55b891;
+}
+
+.border-wide{
+  border: 10px solid #18243a;
+}
+
+#section-auth{
+  margin-top:-1px;
+  background: url('/assets/img/7auth1-min.png');
+  background-size: cover;
+}
+
+#section-1{
+  margin-top:-1px;
+	background: #18243A;
+}
+
+#section-2{
+  margin-top:-1px;
+  background: url('/assets/img/3-min.png');
+  background-size: cover;
+}
+
+#section-3{
+  background: #55b891;
+}
+
+#section-4{
+  margin-top:-1px;
+  background: url('/assets/img/4-min.png');
+  background-size: cover;
+}
+
+.footer{
+  margin-top:-1px;
+}
+
+a:hover.back-to-top {
+  background-color: #18243a;
+}
+
+.form-container{
+  background: #0000004a;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 5px;
+}
+
+.form-group {
+  position: relative;
+  width: 90%;
+  margin: 25px auto;
+}
+
+.img-fluid.tipa {
+  margin-top:133px;
+}
+
+.login-logo-image-mobile {
+  display:none;
+  background: #55b891;
+  margin: 0;
+  border-radius: 10px;
+}
+
+.login-logo-image-mobile img {
+  width: 200px;
+  background: #18243a;
+  padding: 20px;
+  border-radius: 2px;
+}
+
+.btn-success{
+  background: #1abb8e;
+}
+
+
+@media screen and (max-width: 800px) {
+  .login-logo-image {
+    display:none;
+  }
+
+  .login-logo-image-mobile {
+    display:block;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .img-fluid.tipa {
+    margin-top:80px;
+  }
+}

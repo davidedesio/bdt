@@ -1,0 +1,37 @@
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">{{ 'CREDIT_PAGE_LISTING_SUBTITLE_2'|trans }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="sent" style="width:100%">
+            <thead>
+                <tr>
+                    <td>{{ 'CREDIT_PAGE_TIMESTAMP'|trans }}</td>
+                    <td>{{ 'CREDIT_PAGE_FROM'|trans }}</td>
+                    <td>{{ 'CREDIT_PAGE_TO'|trans }}</td>
+                    <td>{{ 'CREDIT_PAGE_VALUE'|trans }}</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in sentTransactions %}
+                    <tr>
+                        <td>{{ transaction.timestamp|date("d/m/Y H:i") }}</td>
+                        <td>{{ transaction.userFrom }}</td>
+                        <td>{{ transaction.userTo }}</td>
+                        <td>{{ transaction.value }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="highlight dark">Totale</td>
+                    <td class="highlight dark">{{ statistics.transactions.sent }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

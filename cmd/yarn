@@ -1,0 +1,2 @@
+docker exec -it -u 1000 bdt_nodejs yarn install
+docker exec -it -u 1000 bdt_nodejs yarn encore dev --watch

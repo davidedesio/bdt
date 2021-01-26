@@ -1,0 +1,211 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block body %}
+
+    {% include('restricted/commons/listing-notifications.html.twig') %}
+    {% include('restricted/commons/offcanvas-menu-right.html.twig') %}
+
+    {{ form_start(form) }}
+
+        <div id="main" class="main-content">
+
+            {% include 'restricted/commons/navbar.html.twig' %}
+            {% include 'restricted/commons/header.html.twig' %}
+            <!-- Page content -->
+            <div class="container-fluid mt--7">
+
+                <div class="row">
+
+                    <div class="col-12">
+
+                        {% if passwordChanged %}<p style="color: darkgreen;font-weight: 600;background: white;padding: 20px;border-radius: 7px;">{{ 'RESET_PASSWORD_SUCCESS_MESSAGE'|trans }}</p>{% endif %}
+
+                        <!-- Preloader -->
+                        {% include('public/commons/spinner.html.twig') %}
+                        <!-- end of preloader -->
+
+                        <div class="row">
+                            <div class="col-xl-4 order-2 mb-5 mb-xl-0">
+
+                                {% include('restricted/user-profile/partials/upload.profile.html.twig') %}
+                                <hr class="my-4">
+                                {% include('restricted/user-profile/partials/card.profile.html.twig') %}
+                                <hr class="my-4">
+                                {% include 'restricted/user-profile/partials/password.profile.html.twig' %}
+                                <hr class="my-4">
+                                {% include 'restricted/user-profile/partials/delete.profile.html.twig' %}
+                                {#
+                                    <hr class="my-4">
+                                    {% include('restricted/user-profile/partials/skills.profile.html.twig') %}
+                                #}
+
+                            </div>
+                            <div class="col-xl-8 order-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0">{{ 'PROFILE_PAGE_TITLE'|trans }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        {% include 'restricted/user-profile/partials/primary.profile.html.twig' %}
+                                        <hr class="my-4">
+                                        {% include 'restricted/user-profile/partials/address.profile.html.twig' %}
+                                        <hr class="my-4">
+                                        {% include 'restricted/user-profile/partials/secondary.profile.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    {{ form_end(form) }}
+
+    {% include 'restricted/user-profile/partials/delete.form.profile.html.twig' %}
+
+    {% include 'restricted/commons/footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+    <script>
+
+        var form = $("form[name=user]")
+
+        $(".hourglass-wrapper").fadeOut(1500);
+        //skills
+        $("#user_skills").selectize();
+
+        //bithdate
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: (new Date().getFullYear()-100)+':'+new Date().getFullYear(),
+        });
+        $.datepicker.regional['it'];
+
+
+        function getBase64(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                //console.log(reader.result);
+                $("#user_upload").parent(".file-upload-wrapper").attr("data-text",$("#user_upload").val().replace(/.*(\/|\\)/, '') );
+                $("#user_upload_warning").fadeIn(500);
+                $("#user_picture").val(reader.result);
+                $(".card-profile-image .profile-picture").css("background-image", "url("+reader.result+")");
+                $(".card-profile-image .fa-user").hide();
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
+
+        var fileSizeErrorBox = new jBox('Modal',{
+            title: "<b>{{ 'PROFILE_PAGE_UPLOAD_MAX_SIZE_TITLE'|trans|raw }}</b><span style=\"float:right;color:#18243a;font-size:25px\" onclick=\"fileSizeErrorBox.close();\"><i class=\"fa fa-times-circle\"></i></span>",
+            content: "{{ 'PROFILE_PAGE_UPLOAD_MAX_SIZE_ERROR'|trans }}"
+        });
+
+        var fileInvalidErrorBox = new jBox('Modal',{
+            title: "<b>{{ 'PROFILE_PAGE_UPLOAD_INVALID_TITLE'|trans|raw }}</b><span style=\"float:right;color:#18243a;font-size:25px\" onclick=\"fileInvalidErrorBox.close();\"><i class=\"fa fa-times-circle\"></i></span>",
+            content: "{{ 'PROFILE_PAGE_UPLOAD_INVALID_ERROR'|trans }}"
+        });
+
+        $("#user_upload").change(function(){
+            var file = $(this)[0].files[0];
+            var fileSize = file.size/1024/1024;
+            if(fileSize>1) {
+                fileSizeErrorBox.open();
+            } else if(invalidFile(file)){
+                fileInvalidErrorBox.open();
+            } else {
+                getBase64(file);
+            }
+        })
+
+        $("form").on('submit',function(){
+            $(".hourglass-wrapper").fadeIn(500);
+        })
+
+        $("#remove-picture").click(function(){
+            $("#user_upload").parent(".file-upload-wrapper").attr("data-text",'{{ 'PROFILE_PAGE_UPLOAD_LABEL'|trans }}');
+            $("#user_upload_warning").fadeIn(500)
+            $("#user_picture").val("");
+            $(".card-profile-image .profile-picture").css("background-image", "");
+            $(".card-profile-image .fa-user").show();
+        })
+
+        var invalidFile = function(file){
+            const  fileType = file['type'];
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (!validImageTypes.includes(fileType)) {
+                return true
+            }
+            return false;
+        }
+
+        $(".save-user").click(function(){
+            validate();
+        });
+
+        var fiscalCodeErrorBox = new jBox('Modal',{
+            title: "<b>{{'USER_INVALID_FISCAL_CODE_TITLE'|trans}}</b><span style=\"float:right;color:#18243a;font-size:25px\" onclick=\"fiscalCodeErrorBox.close();\"><i class=\"fa fa-times-circle\"></i></span>",
+            content: "{{ 'USER_INVALID_FISCAL_CODE_CAPTION'|trans }}",
+            confirmButton: 'OK'
+        });
+
+        var requiredErrorBox = new jBox('Modal',{
+            title: "<b>{{'USER_REQUIRED_TITLE'|trans}}</b><span style=\"float:right;color:#18243a;font-size:25px\" onclick=\"requiredErrorBox.close();\"><i class=\"fa fa-times-circle\"></i></span>",
+            content: "{{ 'USER_REQUIRED_CAPTION'|trans }}",
+            confirmButton: 'OK'
+        });
+
+        var validate = function(){
+
+            var name = $("#user_name").val();
+            var surname = $("#user_surname").val();
+            if(!name || !surname){
+                requiredErrorBox.open();
+                return;
+            }
+
+            var fiscalCode = $("#user_fiscal_code").val();
+            var isFiscalCodeValid = Validator.codiceFiscale(fiscalCode).valid;
+            if(!isFiscalCodeValid && fiscalCode){
+                fiscalCodeErrorBox.open();
+                return;
+            }
+
+            form.submit();
+        }
+
+        $(".del-user").click(function(){
+            var box = new jBox('Confirm', {
+                addClass: "danger",
+                title: "{{'USER_PROFILE_DELETE_QUESTION'|trans}}?",
+                content: "{{ 'USER_PROFILE_DELETE_CAPTION'|trans }}",
+                confirm: function(){
+                    console.log($("#delete-profile-form").length);
+                    $("#delete-profile-form").submit();
+                },
+                confirmButton: "{{ 'USER_PROFILE_DELETE_CTA'|trans }}",
+                cancelButton: "{{ 'CANCEL'|trans }}"
+            });
+
+            box.open();
+        })
+
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.30.0",
+        "core-js": "^3.0.0",
+        "regenerator-runtime": "^0.13.2",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.14.0",
+        "@fullcalendar/core": "^5.4.0",
+        "@fullcalendar/daygrid": "^5.4.0",
+        "@fullcalendar/interaction": "^5.4.0",
+        "@fullcalendar/list": "^5.4.0",
+        "@fullcalendar/timegrid": "^5.4.0",
+        "@marketto/codice-fiscale-utils": "^2.0.2",
+        "bootstrap": "^4.5.2",
+        "datatables.net": "^1.10.22",
+        "datatables.net-bs4": "^1.10.22",
+        "datatables.net-dt": "^1.10.22",
+        "jbox": "^1.2.0",
+        "jquery": "^3.5.1",
+        "jquery-datepicker": "^1.12.3",
+        "jquery-easing": "^0.0.1",
+        "jquery-ui": "^1.12.1",
+        "magnific-popup": "^1.1.0",
+        "popper.js": "^1.16.1",
+        "selectize": "^0.12.6",
+        "swiper": "^6.2.0",
+        "timepicker": "^1.13.15"
+    }
+}

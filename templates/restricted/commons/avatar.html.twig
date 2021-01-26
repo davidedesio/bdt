@@ -1,0 +1,38 @@
+<!-- User -->
+<div class="row text-right">
+    <div class="col-12">
+        {% if notifications is defined and notifications|length>0%}
+            <a class="notification-alert {% if (notifications|length)>0 %}notification-active{% endif %}" href="javascript:void(0)" onclick="toggleNotifications()">
+                <i class="fa fa-bell"></i>&nbsp;{{ (notifications|length) }}
+            </a>
+        {% endif %}
+        <a href="javascript:void(0)" onclick="toggleOffcanvasMenuRight()">
+            <span class="avatar avatar-sm rounded-circle">
+                <div class="rounded-circle profile-picture small" style="background:url({{ user.picture }})">
+                    <div class="fa-user-container">
+                         {% if (user is defined and user.picture is null) %}
+                             <i class="fa fa-user"></i>
+                         {% endif %}
+                    </div>
+                </div>
+            </span>
+        </a>
+    </div>
+    <div class="col-12">
+        <span class="text-white">{{ user.name }} {{ user.surname }}</span>
+        {% if statistics is defined and statistics.level is defined %}
+            <div id="user-level" class="user-level">
+                <span class="user-points">{{ statistics.level.points }}p</span>&nbsp;|&nbsp;<i class="fa {{ statistics.level.icon }}"></i>&nbsp;<span>{{ statistics.level.extended }}</span>
+                <div class="user-points-hint">
+                    <span>In questo box puoi vedere i tuoi punti (<b>{{ statistics.level.points }}p</b>) e il tuo attuale livello (<b>{{ statistics.level.extended }}</b>).</span>
+                    <span>Queste informazioni indicano agli altri utenti il tuo grado di partecipazione alla piattaforma.</span>
+                    <span>Al crescere dei punti ti verrà assegnato un livello superiore, in modo che la tua reputazione aumenti di conseguenza alle azioni che fai sulla Banca del tempo.</span>
+                    {% if statistics.level.next is not null %}
+                    <span><b>Il prossimo livello che puoi raggiungere è {{ statistics.level.next }}, quando otterrai {{ statistics.level.limit }} punti.</b></span>
+                    {% endif %}
+                    <span>Sono assegnati 10 punti per ogni attività eseguita e 5 punti per ogni attività che hai ricevuto.</span>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
