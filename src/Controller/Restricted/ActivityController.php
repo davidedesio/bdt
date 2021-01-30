@@ -505,7 +505,9 @@ class ActivityController extends AbstractController
     public function comment(
         Activity $activity,
         Request $request,
-        TranslatorInterface $translator
+        BankRepository $bankRepository,
+        TranslatorInterface $translator,
+        MailerInterface $mailer
     ): Response
     {
         $user = $this->getUser();
@@ -531,6 +533,8 @@ class ActivityController extends AbstractController
             $notification1->setDismissed(0);
             $entityManager->persist($notification1);
 
+            $bank = $bankRepository->find(1);
+
             $activityCreateUser = $activity->getCreateUser();
             if($user!=$activityCreateUser){
                 //Notification for activity createUser if different from logged
@@ -542,6 +546,20 @@ class ActivityController extends AbstractController
                 $notification2->setActivity($activity);
                 $notification2->setDismissed(0);
                 $entityManager->persist($notification2);
+
+                $email = (new TemplatedEmail())
+                    ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
+                    ->to($activityCreateUser->getEmail())
+                    ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
+                    ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
+                    ->context([
+                        'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
+                        'activity' => $activity,
+                        'website'=> getEnv('WEBSITE')
+                    ])
+                ;
+
+                $mailer->send($email);
             }
 
             foreach($activity->getActivityMatches() as $activityMatch){
@@ -556,6 +574,20 @@ class ActivityController extends AbstractController
                     $notification3->setActivity($activity);
                     $notification3->setDismissed(0);
                     $entityManager->persist($notification3);
+
+                    $email = (new TemplatedEmail())
+                        ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
+                        ->to($activityMatchCreateUser->getEmail())
+                        ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
+                        ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
+                        ->context([
+                            'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
+                            'activity' => $activity,
+                            'website'=> getEnv('WEBSITE')
+                        ])
+                    ;
+
+                    $mailer->send($email);
                 }
             }
 

@@ -20,12 +20,18 @@
         >
             <span id="activity-match-{{ activity.id }}">
                 {% if activity.type.id==1 %}
-                    <span>{{ 'ACTIVITY_BUTTON_AVAILABLE'|trans }}</span>
-                    <i class="fa fa-thumbs-up"></i>
+                    {% if current_path == "app_activity_detail" %}
+                        <span>{{ 'ACTIVITY_BUTTON_AVAILABLE'|trans }}</span>
+                    {% else %}
+                        <span>{{ 'ACTIVITY_SEE'|trans }}</span>
+                    {% endif %}
                 {% endif %}
                 {% if activity.type.id==2 %}
-                    <span>{{ 'ACTIVITY_BUTTON_NEEDED'|trans }}</span>
-                    <i class="fa fa-thumbs-up"></i>
+                    {% if current_path == "app_activity_detail" %}
+                        <span>{{ 'ACTIVITY_BUTTON_NEEDED'|trans }}</span>
+                    {% else %}
+                        <span>{{ 'ACTIVITY_SEE'|trans }}</span>
+                    {% endif %}
                 {% endif %}
             </span>
         </a>

@@ -1,4 +1,4 @@
-<h1>{{ choosenTitle }}</h1>
+<h1>{{ matchTitle }}</h1>
 
 <p>Puoi vedere <a href="{{ website }}{{ path('app_activity_detail',{id:activity.id}) }}">l'attività cliccando qui</a></p>
 
@@ -9,12 +9,4 @@
     <li>Per quanto tempo: {{ activity.estimatedValue }} {{ 'UNITS'|trans }}</li>
     {% if activity.description %}<li>Descrizione: {{ activity.description }}</li>{% endif %}
 </ul>
-
-<p>Ecco alcune informazioni utili per contattare l'utente che ti ha scelto per questa attività</p>
-<ul>
-    <li>Nome e cognome: {{ user.name }} {{ user.surname }}</li>
-    <li>Email: {{ user.email }}</li>
-    {% if user.phone is not null %}<li>Telefono: {{ user.phone }}</li>{% endif %}
-</ul>
-
 
