@@ -10,7 +10,7 @@
         </p>
         {% include 'restricted/commons/avatar.html.twig' %}
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid user-navbar-container" style="padding:0px !important">
         <div class="user-navbar">
             <a {% if 'activity' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_activity_index') }}"><i class="fa fa-fw fa-home"></i>&nbsp;Attività</a>
             <a {% if 'calendar' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_calendar') }}"><i class="fa fa-fw fa-calendar"></i>&nbsp;{{'USER_NAVBAR_2'|trans}}</a>
