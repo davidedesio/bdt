@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-4 mb-2">
         <select id="activity_type_filter" class="form-control">
             <option value="">Filtra per tipologia</option>
             {% for type in activityTypes %}
@@ -13,7 +13,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 mb-2">
         <select id="activity_category_filter" class="form-control">
             <option value="">Filtra per categoria</option>
             {% for cat in activityCategories %}
@@ -22,7 +22,7 @@
         </select>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 mb-2">
         <select id="activity_user_filter" class="form-control">
             <option value="">Filtra per utente</option>
             <option {% if userFilter is not null and userFilter==1 %} selected {% endif%} value="1">Le attività che ho creato</option>

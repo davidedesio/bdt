@@ -46,14 +46,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 minute: '2-digit',
                 meridiem: false
             },
+            footerToolbar: {
+                start: 'title', // will normally be on the left. if RTL, will be on the right
+                center: '',
+                end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+            },
             height: "auto",
             locale: itLocale,
             plugins: [interactionPlugin, dayGridPlugin], // https://fullcalendar.io/docs/plugin-index
             timeZone: "UTC",
             eventDidMount: function(info) {
+                console.log(info.event.extendedProps.icon)
+                var id = info.event._def.publicId;
+                var el = info.el;
+                $(el).append("<div class='fc-event-icon'><img alt='"+info.event.title+"' src='/assets/img/"+info.event.extendedProps.icon+"'></div>")
                 if(calendarRole==="ADMIN"){
-                    var id = info.event._def.publicId;
-                    var el = info.el;
                     $(el).append("<div class='fc-event-action show'><i class='fa fa-pen'></i>&nbsp;Modifica</div>")
                     $(el).append("<div class='fc-event-action del' onclick='event.preventDefault();event.stopPropagation();del("+id+");'><i class='fa fa-trash'></i>&nbsp;Elimina</div>");
                 }

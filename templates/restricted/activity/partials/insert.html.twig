@@ -1,9 +1,7 @@
 <div class="card bg-secondary shadow">
-    <div class="card-header bg-white border-0">
-        <div class="row align-items-center">
-            <div class="col-12">
-                {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-lg'}}) }}
-            </div>
+    <div id="activity_insert_header" class="card-header bg-white border-0">
+        <div class="row align-items-center p-2">
+            <a class="btn btn-block btn-success fe-pulse" id="insert-activity" href="javascript:void(0)">Aggiungi attività&nbsp;&nbsp;<i class="fa fa-pen"></i></a>
         </div>
     </div>
     <div class="card-body" style="display:none" id="activity_insert_body">
@@ -42,8 +40,14 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group focused">
-                        <label class="form-control-label">{{ 'ACTIVITY_VALUE_ESTIMATED'|trans }}</label>
+                        <label class="form-control-label">{{ 'ACTIVITY_VALUE_ESTIMATED_EXTENDED'|trans }}</label>
                         {{ form_widget(form.estimated_value, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group focused">
+                        <label class="form-control-label">{{ 'ACTIVITY_DESCRIPTION'|trans }}</label>
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-lg'}}) }}
                     </div>
                 </div>
             </div>

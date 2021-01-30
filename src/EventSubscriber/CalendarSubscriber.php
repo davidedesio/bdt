@@ -77,6 +77,7 @@ class CalendarSubscriber implements EventSubscriberInterface
 
             $title = "";
             $activityTypeId = $activity->getType()->getId(); // 1 request 2 offer
+            $activityCategoryId = $activity->getCategory()->getId();
             $activityCategoryName = strtolower($activity->getCategory()->getNameIt());
             $activityCreateUser = $activity->getCreateUser();
             $activityAcceptedUser = $activity->getAcceptedUser();
@@ -156,15 +157,19 @@ class CalendarSubscriber implements EventSubscriberInterface
                 new \DateTime($activity->getDate()->format("Y-m-d")." ".$activity->getTime()->add(new \DateInterval('PT'.$activity->getEstimatedValue().'H'))->format("H:i:s"))
             );
 
+
+
             if(is_null($activity->getAcceptedUser())){
                 $calendarEvent->setOptions([
                     'classNames' => ['open'],
                     'id' => $activity->getId(),
+                    'icon' => "category-".$activityCategoryId.".svg"
                 ]);
             } else {
                 $calendarEvent->setOptions([
                     'classNames' => ['closed'],
                     'id' => $activity->getId(),
+                    'icon' => "category-".$activityCategoryId.".svg"
                 ]);
             }
 

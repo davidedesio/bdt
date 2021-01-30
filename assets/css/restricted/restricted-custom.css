@@ -6,6 +6,8 @@ body{
     margin-top: -3em !important;
 }
 
+
+
 @media screen and (max-width: 460px) {
     .mt--7{
         margin-top: 3em !important;
@@ -176,6 +178,10 @@ table a{
     background: #7a8ba5;
     color: white !important;
     border-radius: 50%;
+}
+
+.dataTables_wrapper{
+    overflow:scroll;
 }
 
 select{
@@ -629,22 +635,28 @@ table tr td.actions a{
 }
 
 /* Calendar */
-.fc-event {
+.fc-event, .fc-h-event, .fc-event-main {
     padding: 5px;
     min-height:50px;
     white-space: normal;
     display:block;
     font-size:12px;
     border: 1px solid #eee;
+    color: #5e72e4 !important;
 }
+
+.fc-h-event{
+    background:white;
+}
+
 .fc-event .fc-daygrid-event-dot{
     display:none;
 }
 
-.fc-event.closed{
+.fc-event.closed, .fc-h-event.closed{
     background:#18243a;
     border: 1px solid #18243a;
-    color:white;
+    color:white !important;
 }
 
 .fc-event-time{
@@ -688,6 +700,54 @@ table tr td.actions a{
 
 .fc-event-delete{
 
+}
+
+.fc-event-main-frame{
+    display:block !important;
+}
+
+.fc-event-icon{
+    width: 100%;
+    text-align: center;
+    padding: 0px;
+    margin-top: 5px;
+}
+
+.fc-event-icon img{
+    max-width: 50px !important;
+    margin: auto;
+}
+
+@media screen and (max-width: 740px) {
+    .fc-event-time{
+        font-size:16px !important;
+        text-align:center
+    }
+    .fc-event-icon {
+        width: 100%;
+        text-align: left;
+        padding: 0px;
+        margin-top: 5px;
+        position: absolute;
+        top: 5px;
+    }
+    .fc-event-icon img{
+        max-width: 35px !important;
+        margin: auto;
+    }
+    .fc-event-title{
+        margin-left: 50px;
+    }
+    .fc-button{
+        font-size:12px !important;
+    }
+    .fc-toolbar-title{
+        font-size:16px !important;
+    }
+    .fc-daygrid-day{
+        display: block !important;
+        width:100% !important;
+    }
 }
 
 /* FILE UPLOAD*/
@@ -751,6 +811,19 @@ table tr td.actions a{
     display: block;
     cursor: pointer;
     width: 100%;
+}
+
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    50% { transform: scale(0.85); }
+    to { transform: scale(1); }
+}
+
+.fe-pulse {
+    animation-name: pulse;
+    animation-duration: 3s;
+    animation-iteration-count: 2;
 }
 
 

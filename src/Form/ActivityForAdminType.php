@@ -12,6 +12,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,7 +54,13 @@ class ActivityForAdminType extends AbstractType
                 'class' => \App\Entity\ActivityType::class,
                 'choices'  => $activityTypes,
             ])
-            ->add('estimated_value',TextType::class, ['label'=>false])
+            ->add('estimated_value',IntegerType::class, [
+                'attr' => [
+                    'min' => 1,
+                    'max' => 5
+                ],
+                'label'=>false
+            ])
             ->add('date', DateType::class, [
                 'required'=>true,
                 'label'=>false,

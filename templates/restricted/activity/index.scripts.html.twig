@@ -39,7 +39,10 @@
     })
 
 
-    $("#activity_description").on("click focus touchstart",function(){
-        $("#activity_insert_body").slideDown();
+    $("#insert-activity").on("click focus touchstart",function(){
+        $("#activity_insert_body").slideDown(500);
+        setTimeout(function(){
+            $("#activity_insert_header").slideUp(500);
+        },500)
     })
 </script>
