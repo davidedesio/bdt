@@ -333,7 +333,7 @@ class ActivityController extends AbstractController
                 ->context([
                     'matchTitle' => $matchTitle,
                     'activity' => $activity,
-                    'website'=> getEnv('WEBSITE')
+                    'website'=> $_ENV['WEBSITE']
                 ])
             ;
 
@@ -428,7 +428,7 @@ class ActivityController extends AbstractController
                     'chooseTitle' => $chooseTitle,
                     'acceptedUser' => $acceptedUser,
                     'activity' => $activity,
-                    'website'=> getEnv('WEBSITE')
+                    'website'=> $_ENV['WEBSITE']
                 ])
             ;
 
@@ -464,7 +464,7 @@ class ActivityController extends AbstractController
                     'choosenTitle' => $choosenTitle,
                     'user' => $user,
                     'activity' => $activity,
-                    'website'=> getEnv('WEBSITE')
+                    'website'=> $_ENV['WEBSITE']
                 ])
             ;
 
@@ -555,7 +555,7 @@ class ActivityController extends AbstractController
                     ->context([
                         'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
                         'activity' => $activity,
-                        'website'=> getEnv('WEBSITE')
+                        'website'=> $_ENV['WEBSITE']
                     ])
                 ;
 
@@ -583,7 +583,7 @@ class ActivityController extends AbstractController
                         ->context([
                             'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
                             'activity' => $activity,
-                            'website'=> getEnv('WEBSITE')
+                            'website'=> $_ENV['WEBSITE']
                         ])
                     ;
 
