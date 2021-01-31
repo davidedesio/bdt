@@ -634,6 +634,25 @@ class ActivityController extends AbstractController
     }
 
     /**
+     * @Route("/restricted/notifications/dismissall", name="app_activity_notifications_dismiss_all", methods={"GET"})
+     *
+     */
+    public function notificationsDismissAll(
+        NotificationRepository $notificationRepository
+    ){
+        $user = $this->getUser();
+        $notifications = $notificationRepository->findBy(["user"=>$user]);
+        //only if this notification is for logged user
+        foreach($notifications as $notification){
+            $notification->setDismissed(true); //dismiss notification
+            $this->getDoctrine()->getManager()->persist($notification);
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+        return $this->json(["error"=>false]);
+    }
+
+    /**
      * @Route("/restricted/activity/{id}", name="app_activity_detail", methods={"GET"})
      *
      */

@@ -74,6 +74,22 @@
                     offcanvasMenuRightOpen=false;
                 }
             }
+
+
+            $("#notifications-spinner").hide();
+            function readAll(){
+                $("#notifications-spinner").fadeIn(500);
+                $.ajax({
+                    url: '{{ path('app_activity_notifications_dismiss_all') }}',
+                    type: "GET",
+                    success: function(response){
+                        console.log(response)
+                        if(!response.error){
+                            window.location.reload();
+                        }
+                    }
+                })
+            }
         </script>
     </body>
 </html>
