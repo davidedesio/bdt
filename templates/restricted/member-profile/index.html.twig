@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('restricted') }}
+{% endblock %}
+
+{% block body %}
+
+    {% include('restricted/commons/listing-notifications.html.twig') %}
+    {% include('restricted/commons/offcanvas-menu-right.html.twig') %}
+
+    <div id="main" class="main-content">
+
+        {% include 'restricted/commons/navbar.html.twig' %}
+        {% include 'restricted/commons/header.html.twig' %}
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-xl-4 order-2 mb-5 mb-xl-0">
+                            <hr>
+                            {% include('restricted/member-profile/partials/card.profile.html.twig') %}
+
+                        </div>
+                        <div class="col-xl-8 order-1">
+                            <div class="card bg-secondary shadow">
+                                <div class="card-header bg-white border-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-12">
+                                            <h3 class="mb-0">Il profilo di {{ member.name }}</h3>
+                                            <p>Mostriamo solo alcune informazioni per garantire la massima privacy.<br>Non preoccuparti, condividiamo le informazioni necessarie se devi svolgere una attività con {{ member.name }} (chiedendo il vostro permesso al momento opportuno).</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {% include 'restricted/member-profile/partials/primary.profile.html.twig' %}
+                                    <hr class="my-4">
+                                    {% include 'restricted/member-profile/partials/secondary.profile.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'restricted/commons/footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('restricted') }}
+{% endblock %}

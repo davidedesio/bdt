@@ -165,4 +165,34 @@ class UserProfileController extends AbstractController
         }
     }
 
+    /**
+     * @Route("/restricted/member-profile/{id}", name="app_member_profile", methods={"GET"})
+     */
+    public function member(
+        User $member,
+        UserHelper $userHelper,
+        NotificationRepository $notificationRepository)
+    {
+        $user = $this->getUser();
+
+        if($member->getId()==$user->getId()){
+            return $this->redirectToRoute('app_user_profile');
+        }
+
+        $statistics = $userHelper->computeStatitics($user);
+        $memberStatistics = $userHelper->computeStatitics($member);
+
+        //Get latest notifications for this user
+        $notifications = $notificationRepository->findBy(["user"=>$user,'dismissed'=>false],["id"=>"desc"]);
+
+        return $this->render('restricted/member-profile/index.html.twig', [
+            'user' => $user,
+            'statistics' => $statistics,
+            'member' => $member,
+            'memberStatistics' => $memberStatistics,
+            'notifications'=>$notifications,
+            'passwordChanged' => false
+        ]);
+    }
+
 }

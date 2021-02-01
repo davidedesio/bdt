@@ -1,5 +1,5 @@
 <div class="cd-timeline__block">
-    <div class="cd-timeline__img cd-timeline__img--picture">
+    <a href="{{ path('app_member_profile',{id:activity.createUser.id}) }}" class="cd-timeline__img cd-timeline__img--picture">
         <span class="avatar avatar-sm rounded-circle">
             <div class="rounded-circle profile-picture small" style="background:url({{ activity.createUser.picture }})">
                 {% if activity.createUser.picture is null%}
@@ -7,13 +7,13 @@
                 {% endif %}
             </div>
         </span>
-    </div> <!-- cd-timeline__img -->
+    </a> <!-- cd-timeline__img -->
 
     <div class="cd-timeline__content">
         {% include('restricted/activity/partials/detail.html.twig') %}
 
         <div class="flex justify-between items-center">
-            <span class="cd-timeline__created">{{ activity.createUser.name }} {{ activity.createUser.surname }}</span>
+            <a href="{{ path('app_member_profile',{id:activity.createUser.id}) }}" class="cd-timeline__created">{{ activity.createUser.name }} {{ activity.createUser.surname }}</a>
             <span class="cd-timeline__date">
                 <span class="user-points">{{ acitivitiesUsersStatistics[loop.index0].level.points }}p</span>&nbsp;|&nbsp;<i class="fa {{ acitivitiesUsersStatistics[loop.index0].level.icon }}"></i>&nbsp;<span>{{ acitivitiesUsersStatistics[loop.index0].level.extended }}</span>
             </span>

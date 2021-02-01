@@ -1,0 +1,60 @@
+<div class="card card-profile shadow">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+                <a href="{{path('app_member_profile',{id:member.id})}}">
+                    <div class="rounded-circle profile-picture big" style="background:url({{ member.picture }})">
+                        {% if (member is defined and member.picture is null) %}
+                            <i class="fa fa-user"></i>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+        <!--
+        <div class="d-flex justify-content-between">
+            <a href="#" class="btn btn-sm btn-info mr-4"></a>
+            <a href="#" class="btn btn-sm btn-default float-right"></a>
+        </div>
+        -->
+    </div>
+    <div class="card-body pt-0 pt-md-4">
+        <div class="row card-profile-stats mt-md-5">
+            <div class="col-lg-4">
+                <span class="heading">{{ memberStatistics.transactions.sent }} {% if memberStatistics.transactions.sent==1 %}{{ 'UNIT'|trans }}{% else %}{{ 'UNITS'|trans }}{% endif %}</span>
+                <span class="description">Spese</span>
+            </div>
+            <div class="col-lg-4">
+                <span class="heading">{{ memberStatistics.transactions.received }} {% if memberStatistics.transactions.received==1 %}{{ 'UNIT'|trans }}{% else %}{{ 'UNITS'|trans }}{% endif %}</span>
+                <span class="description">Ricevute</span>
+            </div>
+            <div class="col-lg-4 credit-highlight">
+                <a href="{{ path('app_credit') }}">
+                    <span class="heading">{{ memberStatistics.transactions.credit }} {% if memberStatistics.transactions.credit==1 %}{{ 'UNIT'|trans }}{% else %}{{ 'UNITS'|trans }}{% endif %}</span>
+                    <span class="description">Credito</span>
+                </a>
+            </div>
+        </div>
+        <div class="row card-profile-stats">
+            <div class="col-lg-4">
+                <span class="heading">{{ memberStatistics.activities.asked }} {{ 'ACTIVITIES'|trans }}</span>
+                <span class="description">Richieste</span>
+            </div>
+            <div class="col-lg-4">
+                <span class="heading">{{ memberStatistics.activities.done }}  {{ 'ACTIVITIES'|trans }}</span>
+                <span class="description">Eseguite</span>
+            </div>
+            <div class="col-lg-4">
+                <span class="heading">{{ memberStatistics.activities.involved }}  {{ 'ACTIVITIES'|trans }}</span>
+                <span class="description">Partecipate</span>
+            </div>
+        </div>
+        <div class="text-center">
+            <h3>
+                <span class="user-points">{{ memberStatistics.level.points }}p</span>&nbsp;|&nbsp;<i class="fa {{ memberStatistics.level.icon }}"></i>&nbsp;<span>{{ memberStatistics.level.extended }}</span>
+            </h3>
+        </div>
+    </div>
+</div>

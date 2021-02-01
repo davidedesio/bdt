@@ -15,15 +15,17 @@
             {% if current_path == "app_activity_detail" %}
             <div class="col-lg-4">
                 <div class="text-right">
-                    <span class="avatar avatar-sm rounded-circle">
-                        <div class="rounded-circle profile-picture small" style="background:url({{ activity.createUser.picture }}); position:relative">
-                            {% if activity.createUser.picture is null%}
-                                <i class="fa fa-user"></i>
-                            {% endif %}
-                        </div>
-                    </span>
-                    <br>
-                    <span>{{ activity.createUser.name }} {{ activity.createUser.surname }}</span>
+                    <a href="{{ path('app_member_profile',{id:activity.createUser.id}) }}">
+                        <span class="avatar avatar-sm rounded-circle">
+                            <div class="rounded-circle profile-picture small" style="background:url({{ activity.createUser.picture }}); position:relative">
+                                {% if activity.createUser.picture is null%}
+                                    <i class="fa fa-user"></i>
+                                {% endif %}
+                            </div>
+                        </span>
+                        <br>
+                        <span>{{ activity.createUser.name }} {{ activity.createUser.surname }}</span>
+                    </a>
                 </div>
             </div>
             {% endif %}

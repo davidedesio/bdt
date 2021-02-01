@@ -21,7 +21,7 @@
                 {% for leaderboardPointsUser in leaderboardPointsUsers %}
                     <tr>
                         <td>{{ loop.index }}</td>
-                        <td><b>{{ leaderboardPointsUser.name }} {{ leaderboardPointsUser.surname }}</b></td>
+                        <td><b><a href="{{ path('app_member_profile',{id:leaderboardPointsUser.id}) }}">{{ leaderboardPointsUser.name }} {{ leaderboardPointsUser.surname }}</a></b></td>
                         <td>{{ leaderboardPointsUser.receivedPoints }}</td>
                         <td>{{ leaderboardPointsUser.sentPoints }}</td>
                         <td class="highlight dark"><b>{{ leaderboardPointsUser.receivedPoints+leaderboardPointsUser.sentPoints }}</b></td>

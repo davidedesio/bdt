@@ -18,7 +18,7 @@
                 {% for leaderboardDoneUser in leaderboardDoneUsers %}
                     <tr>
                         <td>{{ loop.index }}</td>
-                        <td><b>{{ leaderboardDoneUser.name }} {{ leaderboardDoneUser.surname }}</b></td>
+                        <td><b><a href="{{ path('app_member_profile',{id:leaderboardDoneUser.id}) }}">{{ leaderboardDoneUser.name }} {{ leaderboardDoneUser.surname }}</a></b></td>
                         <td class="highlight dark"><b>{{ leaderboardDoneUser.done }}</b></td>
                     </tr>
                 {% endfor %}
