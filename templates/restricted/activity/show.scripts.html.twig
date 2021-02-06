@@ -121,6 +121,30 @@
         fetchComments()
     },10000)
 
+
+    var delComment = function(id){
+
+        var box = new jBox('Confirm', {
+            title: "{{'ACTIVITY_COMMENT_DELETE_QUESTION'|trans}}",
+            content: "{{ 'ACTIVITY_COMMENT_DELETE_CAPTION'|trans }}",
+            confirm: function(data){
+                $.ajax({
+                    url: '/restricted/activity/delete/comment/'+id,
+                    type: "POST",
+                    success: function(response){
+                        console.log(data)
+                        $("#comment-"+id).remove();
+                    }
+                })
+
+            },
+            confirmButton: "{{ 'CONFIRM'|trans }}",
+            cancelButton: "{{ 'CANCEL'|trans }}"
+        });
+
+        box.open();
+    }
+
     const picker = new EmojiButton({
         emojiSize: '1.4em'
     });
@@ -135,6 +159,8 @@
     });
 
     trigger.addEventListener('click', () => picker.togglePicker(trigger));
+
+
 
 
 </script>

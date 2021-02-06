@@ -8,7 +8,7 @@
         -->
         <h4>{{ comment.createTimestamp|date("d/m/Y H:i") }}</h4>
         <div>{{ comment.comment }}</div>
-        {% if is_granted('ROLE_ADMIN') and app.request.get('_route') == 'admin_activity_edit'  %}
+        {% if (is_granted('ROLE_ADMIN') and app.request.get('_route') == 'admin_activity_edit') or (comment.createUser==user)  %}
             <a class="delete-comment" href="javascript:void(0)" onclick="delComment({{ comment.id }})"><i class="fa fa-trash"></i></a>
         {% endif %}
     </div>

@@ -744,4 +744,19 @@ class ActivityController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("restricted/activity/delete/comment/{id}", name="admin_activity_comment_delete", methods={"POST"})
+     */
+    public function deleteComment(Request $request, ActivityComment $activityComment): Response
+    {
+        $user = $this->getUser();
+        if($user==$activityComment->getCreateUser()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($activityComment);
+            $entityManager->flush();
+        }
+
+        return $this->json(["done"]);
+    }
+
 }
