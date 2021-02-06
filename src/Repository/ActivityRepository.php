@@ -243,7 +243,7 @@ class ActivityRepository extends ServiceEntityRepository
     public function next(User $user)
     {
         $query = $this->createQueryBuilder('a')
-            ->andWhere("a.date>=CURRENT_DATE()") //activity should be in the future
+            ->andWhere("a.date>CURRENT_DATE() OR (a.date=CURRENT_DATE() and a.time>=CURRENT_TIME())") //activity should be in the future
             ->andWhere("a.acceptedUser is not null")
             ->andWhere("a.createUser = :user or a.acceptedUser = :user")->setParameter('user', $user);
         return $query->orderBy('a.date', 'ASC')

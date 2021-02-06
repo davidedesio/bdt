@@ -120,4 +120,21 @@
     setInterval(function(){
         fetchComments()
     },10000)
+
+    const picker = new EmojiButton({
+        emojiSize: '1.4em'
+    });
+    const trigger = document.querySelector("#emoji-trigger");
+    const inputEl = $("#activity-comment");
+
+    picker.on('emoji', selection => {
+        // handle the selected emoji here
+        //console.log(selection.emoji);
+        var value = inputEl.val();
+        inputEl.val(value+" "+selection.emoji);
+    });
+
+    trigger.addEventListener('click', () => picker.togglePicker(trigger));
+
+
 </script>

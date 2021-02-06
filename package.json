@@ -20,6 +20,7 @@
         "@fullcalendar/interaction": "^5.4.0",
         "@fullcalendar/list": "^5.4.0",
         "@fullcalendar/timegrid": "^5.4.0",
+        "@joeattardi/emoji-button": "^4.6.0",
         "@marketto/codice-fiscale-utils": "^2.0.2",
         "bootstrap": "^4.5.2",
         "datatables.net": "^1.10.22",

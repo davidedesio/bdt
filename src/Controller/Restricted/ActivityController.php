@@ -524,6 +524,7 @@ class ActivityController extends AbstractController
             $activityComment->setCreateTimestamp(new \DateTime());
 
             //Notification for logged user
+            /*
             $notification1 = new Notification();
             $notification1->setMessage($translator->trans('ACTIVITY_COMMENT_ACTION'));
             $notification1->setUser($user);
@@ -532,6 +533,7 @@ class ActivityController extends AbstractController
             $notification1->setActivity($activity);
             $notification1->setDismissed(0);
             $entityManager->persist($notification1);
+            */
 
             $bank = $bankRepository->find(1);
 
@@ -562,9 +564,11 @@ class ActivityController extends AbstractController
                 $mailer->send($email);
             }
 
+            $activityMatchCreateUsers = [];
             foreach($activity->getActivityMatches() as $activityMatch){
                 //notification for each user which has matched this activity if different from logged
                 $activityMatchCreateUser = $activityMatch->getCreateUser();
+                $activityMatchCreateUsers[] = $activityMatchCreateUser;
                 if($user!=$activityMatchCreateUser){
                     $notification3 = new Notification();
                     $notification3->setMessage($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'));
@@ -578,6 +582,35 @@ class ActivityController extends AbstractController
                     $email = (new TemplatedEmail())
                         ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
                         ->to($activityMatchCreateUser->getEmail())
+                        ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
+                        ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
+                        ->context([
+                            'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
+                            'activity' => $activity,
+                            'website'=> $_ENV['WEBSITE']
+                        ])
+                    ;
+
+                    $mailer->send($email);
+                }
+            }
+
+            foreach($activity->getActivityComments() as $activityCommentItem){
+                //notification for each user which has commented this activity is different from logged and not in matched users
+                $activityCommentItemUser = $activityCommentItem->getCreateUser();
+                if($user!=$activityCommentItemUser && !in_array($activityCommentItemUser,$activityMatchCreateUsers)){
+                    $notification4 = new Notification();
+                    $notification4->setMessage($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'));
+                    $notification4->setUser($activityCommentItemUser);
+                    $notification4->setCreateUser($user);
+                    $notification4->setCreateTimestamp(new \DateTime());
+                    $notification4->setActivity($activity);
+                    $notification4->setDismissed(0);
+                    $entityManager->persist($notification4);
+
+                    $email = (new TemplatedEmail())
+                        ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
+                        ->to($activityCommentItemUser->getEmail())
                         ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
                         ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
                         ->context([

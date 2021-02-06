@@ -9,10 +9,13 @@ import '../../css/restricted/restricted.css';
 import '../../css/restricted/restricted-custom.css';
 import '../../css/restricted/timeline.css';
 import '../../css/commons/hourglass.css';
-
 import $ from 'jquery';
 import datepickerFactory from 'jquery-datepicker';
 import datepickerITFactory from 'jquery-datepicker/i18n/jquery.ui.datepicker-it';
+import { EmojiButton } from '@joeattardi/emoji-button';
+
+/** Use **/
+
 global.$ = global.jQuery = $;
 datepickerFactory($);
 datepickerITFactory($);
@@ -43,6 +46,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
+
+global.EmojiButton = EmojiButton;
 
 require('./calendar.js');
 require('./timeline.js');

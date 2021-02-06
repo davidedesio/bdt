@@ -1,11 +1,12 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
         <div class="form-group focused">
+            <label class="form-control-label">Inserisci commento</label>
+            <a href="javascript:void(0)" id="emoji-trigger" class="emoji-trigger-button" >&#128522;</a>
             <textarea placeholder="{{ 'ACTIVITY_COMMENT_PLACEHOLDER'|trans }}" id="activity-comment" class="form-control form-control-alternative"></textarea>
         </div>
     </div>
-    <div class="col-lg-8"></div>
-    <div class="col-lg-4">
+    <div class="col-lg-12">
         <div class="form-group focused">
             <button id="activity-comment-button" onclick="addComment({{ activity.id }})" class="btn btn-success btn-lg btn-block">{{ 'ACTIVITY_COMMENT_CTA'|trans }}</button>
         </div>
