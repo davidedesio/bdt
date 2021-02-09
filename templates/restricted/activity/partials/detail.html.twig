@@ -3,13 +3,14 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h3 class="mb-0">
+                    <span style="border-radius:5px;margin-bottom:2px;display:inline-block;color:white;background:{{ activity.type.id==1?'#387268':'#8b0102' }};padding:4px;">{{ activity.type.id==1?'Richiesta':'Offerta' }}</span>
+                    <br>
                     <a href="{{ path('app_activity_detail',{id:activity.id}) }}">{{ activity.type.nameIT }} {{ activity.category.nameIT|lower }}</a>
                 </h3>
                 {% if activity.location is not null %}
                     <p class="mb-0">{{ activity.location }}</p>
                 {% endif %}
             </div>
-
 
             {% set current_path = app.request.get('_route') %}
             {% if current_path == "app_activity_detail" %}
@@ -28,14 +29,17 @@
                     </a>
                 </div>
             </div>
+            
+            <div class="col-lg-4 mt-2">
+                <img style="width:50px" src='/assets/img/category-{{ activity.category.id }}.svg'>
+            </div>
             {% endif %}
-
-            <div class="col-lg-6 mt-2">
+            <div class="col-lg-4 mt-2">
                 Quando<br>
                 <i class="fa fa-calendar-day"></i>
                 <span>{{ activity.date|date('d/m/Y') }} {{ activity.time|date('H:i') }}</span>
             </div>
-            <div class="col-lg-6 mt-2">
+            <div class="col-lg-4 mt-2">
                 Durata<br>
                 <i class="fa fa-clock"></i>
                 <span>{{ activity.estimatedValue }} {{ 'UNITS'|trans }}</span>
