@@ -1558,6 +1558,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
+bootstrap-show-password-toggle@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-show-password-toggle/-/bootstrap-show-password-toggle-1.0.0.tgz#36ad7ab0b72d6f871ea5ffe5f6b38ee7586e79c4"
+  integrity sha512-by279th2T8JMcqliBRdp0TYCk1X6PFMYMThtR+fshcSNvB6rx/4Hmlx7n8c/9oVQCQrAJXI+um2MGzKTsd9ccQ==
+
 bootstrap@^4.5.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.2.tgz#a85c4eda59155f0d71186b6e6ad9b875813779ab"

@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'magnific-popup/dist/magnific-popup.css';
 import 'swiper/swiper-bundle.css';
+import '../../css/public/show-password-toggle.css';
 import '../../css/public/public.css';
 import '../../css/public/public-custom.css';
 import '../../css/public/auth.css';
@@ -33,4 +34,5 @@ global.magnificPopup = magnificPopup;
 require('../../js/public/validator.min.js');
 require('../../js/public/scripts.js');
 require('../../js/public/request-form.js');
+require('../../js/public/show-password-toggle.js');
 

@@ -9,6 +9,7 @@ import '../../css/restricted/restricted.css';
 import '../../css/restricted/restricted-custom.css';
 import '../../css/restricted/timeline.css';
 import '../../css/commons/hourglass.css';
+import '../../css/public/show-password-toggle.css';
 import $ from 'jquery';
 import datepickerFactory from 'jquery-datepicker';
 import datepickerITFactory from 'jquery-datepicker/i18n/jquery.ui.datepicker-it';
@@ -51,3 +52,4 @@ global.EmojiButton = EmojiButton;
 
 require('./calendar.js');
 require('./timeline.js');
+require('../../js/public/show-password-toggle.js');

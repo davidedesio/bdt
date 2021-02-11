@@ -164,6 +164,7 @@ PROFILE_PAGE_HINT_2: "Non condividiamo tutte le informazioni che inserisci! Nell
 PROFILE_PAGE_HINT_3: "Quante più informazioni ci fornirai, tanto più saremo in grado di proporti attività a cui potresti essere interessato o che potresti svolgere"
 PROFILE_PAGE_EMAIL_HINT: "Non condividiamo il tuo indirizzo email per proteggere la tua privacy"
 PROFILE_PAGE_ADDRESS_HINT: "Non condividiamo il tuo indirizzo per proteggere la tua privacy"
+PROFILE_PAGE_UPLOAD_HINT: "E' possibile caricare una foto al massimo di 1MB.<br>Ti consigliamo di scegliere una foto quadrata in cui sei inquadrato al centro (stile fototessera)"
 PROFILE_PAGE_UPLOAD_SAVE_WARNING: "Attenzione: la tua foto non è ancora stata modificata. Devi cliccare sul bottone salva profilo per confermare il salvataggio e non perdere la modifica!"
 PROFILE_PAGE_UPLOAD_LABEL: "Seleziona una immagine"
 PROFILE_PAGE_UPLOAD_MAX_SIZE_TITLE: "L'immagine è troppo pesante"

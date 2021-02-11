@@ -9,6 +9,7 @@
     </div>
     <div class="card-body pt-0 pt-md-4">
         <div class="text-left">
+            <p>{{ 'PROFILE_PAGE_UPLOAD_HINT'|trans|raw }}</p>
             {{ form_errors(form.upload) }}
             <div class="file-upload-wrapper" data-text="{{ 'PROFILE_PAGE_UPLOAD_LABEL'|trans }}">
                 {{ form_widget(form.upload, {'attr': {'class': 'file-upload-field'}}) }}

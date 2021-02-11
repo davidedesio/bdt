@@ -25,7 +25,10 @@
 
             <input placeholder="Email" type="text" id="username" name="_username" value="{{ last_username }}"/>
 
-            <input placeholder="Password" type="password" id="password" name="_password"/>
+            <div class="input-group">
+                <input placeholder="Password" type="password" id="password" name="_password"/>
+                <button id="toggle-password" class="toggle-password" type="button" class="d-none" aria-label=""></button>
+            </div>
 
             <button type="submit">{{ 'LOGIN'|trans }}</button>
 

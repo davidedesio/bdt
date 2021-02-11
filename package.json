@@ -23,6 +23,7 @@
         "@joeattardi/emoji-button": "^4.6.0",
         "@marketto/codice-fiscale-utils": "^2.0.2",
         "bootstrap": "^4.5.2",
+        "bootstrap-show-password-toggle": "^1.0.0",
         "datatables.net": "^1.10.22",
         "datatables.net-bs4": "^1.10.22",
         "datatables.net-dt": "^1.10.22",

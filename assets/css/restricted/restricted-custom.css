@@ -330,12 +330,12 @@ select{
 
 .speech-bubble-container.left  .delete-comment{
     right: 0px;
-    border-radius: 0 50%;
+    border-radius: 0 40%;
 }
 
 .speech-bubble-container.right  .delete-comment{
     left: 0px;
-    border-radius: 50% 0;
+    border-radius: 40% 0;
 }
 
 .speech-bubble-container.right{
@@ -345,7 +345,7 @@ select{
 }
 
 .speech-bubble-container.right .speech-bubble{
-    background: #18243a;
+    background: #4b9a89;
     border-radius:20px;
     text-align: right;
 }
@@ -380,9 +380,9 @@ select{
     width: 0px;
     height: 0px;
     position: absolute;
-    border-left: 10px solid #18243a;
+    border-left: 10px solid #4b9a89;
     border-right: 10px solid transparent;
-    border-top: 10px solid #18243a;
+    border-top: 10px solid #4b9a89;
     border-bottom: 10px solid transparent;
     right: -20px;
     top: 30px;
