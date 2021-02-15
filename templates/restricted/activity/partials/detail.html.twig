@@ -1,9 +1,10 @@
+{% set current_path = app.request.get('_route') %}
 <div class="activity card bg-secondary shadow">
     <div class="card-header bg-white border-0">
         <div class="row align-items-center">
-            <div class="col-lg-8">
+            <div class="{% if current_path == "app_activity_detail" %}col-8{% else %}col-12{% endif %}">
                 <h3 class="mb-0">
-                    <span style="border-radius:5px;margin-bottom:2px;display:inline-block;color:white;background:{{ activity.type.id==1?'#387268':'#8b0102' }};padding:4px;">{{ activity.type.id==1?'Richiesta':'Offerta' }}</span>
+                    <span style="border-radius:5px;margin-bottom:5px;display:inline-block;color:white;background:{{ activity.type.id==1?'#387268':'#8b0102' }};padding:4px;">{{ activity.type.id==1?'Richiesta':'Offerta' }}</span>
                     <br>
                     <a href="{{ path('app_activity_detail',{id:activity.id}) }}">{{ activity.type.nameIT }} {{ activity.category.nameIT|lower }}</a>
                 </h3>
@@ -12,12 +13,12 @@
                 {% endif %}
             </div>
 
-            {% set current_path = app.request.get('_route') %}
-            <div class="col-lg-4">
+            {% if current_path == "app_activity_detail" %}
 
-                {% if current_path == "app_activity_detail" %}
-                <div class="text-right">
+                <div class="col-4 mt-2 text-right">
                     <a href="{{ path('app_member_profile',{id:activity.createUser.id}) }}">
+                        {{ activity.createUser.name }}<br>
+                        {{ activity.createUser.surname }}<br>
                         <span class="avatar avatar-sm rounded-circle">
                             <div class="rounded-circle profile-picture small" style="background:url({{ activity.createUser.picture }}); position:relative">
                                 {% if activity.createUser.picture is null%}
@@ -25,28 +26,23 @@
                                 {% endif %}
                             </div>
                         </span>
-                        <br>
-                        <span>{{ activity.createUser.name }} {{ activity.createUser.surname }}</span>
                     </a>
                 </div>
-                {% endif %}
-            </div>
 
-            {% if current_path == "app_activity_detail" %}
-            <div class="col-lg-4 mt-2">
-                <img style="width:50px" src='/assets/img/category-{{ activity.category.id }}.svg'>
-            </div>
+                <div class="col-4 mt-2">
+                    <img style="width:50px" src='/assets/img/category-{{ activity.category.id }}.svg'>
+                </div>
             {% endif %}
 
-            <div class="col-lg-4 mt-2">
-                Quando<br>
-                <i class="fa fa-calendar-day"></i>
-                <span>{{ activity.date|date('d/m/Y') }} {{ activity.time|date('H:i') }}</span>
+            <div class="{% if current_path == "app_activity_detail" %}col-4{% else %}col-12{% endif %} mt-2">
+                <i class="fa fa-calendar-day"></i><br>
+                <span style="font-size:15px">{{ activity.date|date('d/m/y') }}</span><br>
+                <span style="font-size:15px">{{ activity.time|date('H:i') }}</span>
             </div>
-            <div class="col-lg-4 mt-2">
-                Durata<br>
-                <i class="fa fa-clock"></i>
-                <span>{{ activity.estimatedValue }} {{ 'UNITS'|trans }}</span>
+            <div class="{% if current_path == "app_activity_detail" %}col-4{% else %}col-12{% endif %} mt-2">
+                <i class="fa fa-clock"></i><br>
+                <span style="font-size:15px">Durata</span><br>
+                <span style="font-size:15px">{{ activity.estimatedValue }} {{ 'UNITS'|trans }}</span>
             </div>
         </div>
     </div>
@@ -77,14 +73,15 @@
                     {% endif %}
                 </a>
             </div>
+
         </div>
         {% else %}
-        <div class="row">
-            <div class="col-lg-12">
-                <i class="fa fa-user-plus"></i>
-                Svolto da {{ activity.acceptedUser.name }} {{ activity.acceptedUser.surname }}
+            <div class="row">
+                <div class="col-lg-12">
+                    <i class="fa fa-user-plus"></i>
+                    Svolto da {{ activity.acceptedUser.name }} {{ activity.acceptedUser.surname }}
+                </div>
             </div>
-        </div>
         {% endif %}
 
         <div class="row activity-description-container">
@@ -92,9 +89,9 @@
             <div class="activity-description col-lg-12">
                 {{ activity.description }}
             </div>
-
             {% include('restricted/activity/partials/button.html.twig') %}
 
         </div>
+
     </div>
 </div>

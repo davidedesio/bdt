@@ -759,4 +759,43 @@ class ActivityController extends AbstractController
         return $this->json(["done"]);
     }
 
+    /**
+     * @Route("restricted/activity/delete/{id}", name="app_activity_delete", methods={"POST"})
+     */
+    public function delete(
+        Request $request,
+        Activity $activity
+    ): Response
+    {
+        $user = $this->getUser();
+        if($activity->getCreateUser()==$user){
+            $entityManager = $this->getDoctrine()->getManager();
+
+            // Delete comments
+            foreach($activity->getActivityComments() as $activityComment){
+                $entityManager->remove($activityComment);
+            }
+
+            // Delete matches
+            foreach($activity->getActivityMatches() as $activityMatch){
+                $entityManager->remove($activityMatch);
+            }
+            // Delete transactions
+            foreach($activity->getTransactions() as $transaction){
+                $entityManager->remove($transaction);
+            }
+
+            //Delete notifications
+            foreach($activity->getNotifications() as $notification){
+                $entityManager->remove($notification);
+            }
+            $entityManager->flush();
+
+            $entityManager->remove($activity);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_activity');
+    }
+
 }

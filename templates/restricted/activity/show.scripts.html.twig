@@ -160,7 +160,28 @@
 
     trigger.addEventListener('click', () => picker.togglePicker(trigger));
 
+    $("#del-activity").click(function(){
 
+        var url = $(this).attr("data-url");
+        var box = new jBox('Confirm', {
+            title: "{{'ACTIVITY_DELETE_QUESTION'|trans}}",
+            content: "{{ 'ACTIVITY_DELETE_CAPTION'|trans }}",
+            confirm: function(data){
+                $(".hourglass-wrapper").show();
+                $.ajax({
+                    url:url,
+                    type: "POST",
+                    success: function(response){
+                        window.location.href="/"
+                    }
+                });
+            },
+            confirmButton: "{{ 'CONFIRM'|trans }}",
+            cancelButton: "{{ 'CANCEL'|trans }}"
+        });
 
+        box.open();
+
+    })
 
 </script>
