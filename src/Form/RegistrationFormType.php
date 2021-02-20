@@ -56,6 +56,13 @@ class RegistrationFormType extends AbstractType
                     'label'=>false
                 ]
             ])
+            ->add('phone',TextType::class, [
+                'label'=>false,
+                'required'=>false,
+                'attr' => array(
+                    'placeholder' => $this->translator->trans("PHONE")
+                )
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => $this->translator->trans("RESET_PASSWORD_FORM_ERROR_3"),

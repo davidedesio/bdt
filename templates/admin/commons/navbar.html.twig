@@ -14,7 +14,7 @@
         <div class="user-navbar">
             <a {% if 'activity' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_activity_index') }}"><i class="fa fa-fw fa-home"></i>&nbsp;Attività</a>
             <a {% if 'calendar' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_calendar') }}"><i class="fa fa-fw fa-calendar"></i>&nbsp;{{'USER_NAVBAR_2'|trans}}</a>
-            <a {% if 'user' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_user_index') }}"><i class="fa fa-fw fa-users"></i>&nbsp;Utenti</a>
+            <a {% if 'user' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_user_index') }}"><i class="fa fa-fw fa-users"></i>&nbsp;Utenti{% if waitingUsers is defined and waitingUsers>0 %}<span class="btn btn-sm btn-danger mb-0 ml-1" style="padding: 2px 7px;">{{ waitingUsers }}</span>{% endif %}</a>
             <a {% if 'transaction' in app.request.pathinfo %}class="active"{% endif %} href="{{ path('admin_transaction_index') }}"><i class="fa fa-fw fa-list"></i>&nbsp;Transazioni</a>
         </div>
     </div>

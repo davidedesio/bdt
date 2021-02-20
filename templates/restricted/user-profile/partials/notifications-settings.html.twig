@@ -1,0 +1,28 @@
+
+<div class="row align-items-center">
+    <div class="col-8">
+        <h6 class="heading-small text-muted mb-4">{{ 'PROFILE_PAGE_SUBTITLE_6'|trans }}</h6>
+    </div>
+    <div class="col-4 text-right">
+        <a href="javascript:void(0)" class="btn btn-sm btn-success save-user">{{ 'PROFILE_PAGE_SAVE'|trans }}</a>
+    </div>
+</div>
+<div class="pl-lg-4">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="custom-control custom-switch">
+                {{ form_widget(form.activities_email, {'attr': {'class': 'custom-control-input'}}) }}
+                <label class="custom-control-label" for="user_activities_email">{{ 'PROFILE_PAGE_ACTIVITIES_EMAIL'|trans }}</label>
+                <p class="profile-hint">{{ 'PROFILE_PAGE_ACTIVITIES_EMAIL_HINT'|trans }}</p>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="custom-control custom-switch">
+                {{ form_widget(form.comments_email, {'attr': {'class': 'custom-control-input'}}) }}
+                <label class="custom-control-label" for="user_comments_email">{{ 'PROFILE_PAGE_COMMENTS_EMAIL'|trans }}</label>
+                <p class="profile-hint">{{ 'PROFILE_PAGE_COMMENTS_EMAIL_HINT'|trans }}</p>
+            </div>
+        </div>
+    </div>
+</div>

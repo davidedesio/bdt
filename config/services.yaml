@@ -35,3 +35,12 @@ services:
             - { name: 'kernel.event_listener', event: 'kernel.request' }
 
     App\EventSubscriber\CalendarSubscriber:
+
+
+    App\EventListener\NewActivityListener:
+        arguments:
+            - '@router'
+            - '@logger'
+            - '@mailer'
+        tags:
+            - { name: kernel.event_listener, event: kernel.terminate }

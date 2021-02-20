@@ -183,6 +183,16 @@ class User implements UserInterface
      */
     private $createTimestamp;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":1})
+     */
+    private $commentsEmail = 1;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":1})
+     */
+    private $activitiesEmail = 1;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -764,6 +774,30 @@ class User implements UserInterface
     public function setCreateTimestamp(\DateTimeInterface $createTimestamp): self
     {
         $this->createTimestamp = $createTimestamp;
+
+        return $this;
+    }
+
+    public function getCommentsEmail(): ?bool
+    {
+        return $this->commentsEmail;
+    }
+
+    public function setCommentsEmail(bool $commentsEmail): self
+    {
+        $this->commentsEmail = $commentsEmail;
+
+        return $this;
+    }
+
+    public function getActivitiesEmail(): ?bool
+    {
+        return $this->activitiesEmail;
+    }
+
+    public function setActivitiesEmail(bool $activitiesEmail): self
+    {
+        $this->activitiesEmail = $activitiesEmail;
 
         return $this;
     }

@@ -26,11 +26,16 @@
                 {{ form_widget(registrationForm.email.first) }}
                 {{ form_widget(registrationForm.email.second) }}
                 <p>{{ 'REGISTER_CHECK_EMAIL'|trans|raw }}</p>
+                <hr>
+                {{ form_row(registrationForm.phone, {'attr': {'class': 'form-control form-control-alternative'}}) }}
+                <p>{{ 'REGISTER_CHECK_PHONE'|trans|raw }}</p>
+                <hr>
                 {% if form_errors(registrationForm.name) is not empty %}<div class="error" role="alert">{{ form_errors(registrationForm.name) }}</div>{% endif %}
                 {{ form_widget(registrationForm.name) }}
                 {% if form_errors(registrationForm.name) is not empty %}<div class="error" role="alert">{{ form_errors(registrationForm.surname) }}</div>{% endif %}
                 {{ form_widget(registrationForm.surname) }}
 
+                <hr>
                 <div class="input-group">
                     {{ form_widget(registrationForm.plainPassword.first) }}
                     <button id="registration_form_plainPassword_first-toggle-password" class="toggle-password" type="button" class="d-none" aria-label=""></button>

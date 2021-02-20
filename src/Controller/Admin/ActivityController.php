@@ -8,6 +8,7 @@ use App\Form\ActivityForAdminType;
 use App\Repository\ActivityCategoryRepository;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityTypeRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +24,15 @@ class ActivityController extends AbstractController
     /**
      * @Route("/", name="admin_activity_index", methods={"GET"})
      */
-    public function index(ActivityRepository $activityRepository, Request $request): Response
+    public function index(
+        ActivityRepository $activityRepository,
+        UserRepository $userRepository,
+        Request $request): Response
     {
         $user = $this->getUser();
+
+        $waitingUsers = $userRepository->count(["status"=>0]);
+
         $limit = 10;
         $data = $request->query->all();
         $page = 0;
@@ -96,16 +103,18 @@ class ActivityController extends AbstractController
             'search' => $search,
             'date_from' => $date_from,
             'date_to' => $date_to,
-            'user'=>$user
+            'user'=>$user,
+            'waitingUsers'=>$waitingUsers
         ]);
     }
 
     /**
      * @Route("/new", name="admin_activity_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(UserRepository $userRepository, Request $request): Response
     {
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
 
         $activity = new Activity();
         $form = $this->createForm(ActivityForAdminType::class, $activity);
@@ -123,7 +132,8 @@ class ActivityController extends AbstractController
         return $this->render('admin/activity/new.html.twig', [
             'activity' => $activity,
             'form' => $form->createView(),
-            'user'=>$user
+            'user'=>$user,
+            'waitingUsers'=>$waitingUsers
         ]);
     }
 
@@ -134,10 +144,12 @@ class ActivityController extends AbstractController
         Request $request,
         Activity $activity,
         ActivityTypeRepository $activityTypeRepository,
-        ActivityCategoryRepository $activityCategoryRepository
+        ActivityCategoryRepository $activityCategoryRepository,
+        UserRepository $userRepository
     ): Response
     {
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
 
         $activityTypes = $activityTypeRepository->findAll();
         $activityCategories = $activityCategoryRepository->findAll();
@@ -163,7 +175,8 @@ class ActivityController extends AbstractController
             'user'=>$user,
             'activityTypes'=>$activityTypes,
             'activityCategories'=>$activityCategories,
-            "sinceCommentId" => $sinceCommentId
+            "sinceCommentId" => $sinceCommentId,
+            "waitingUsers" => $waitingUsers
         ]);
     }
 

@@ -26,6 +26,7 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository, UserHelper $userHelper, Request $request): Response
     {
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
 
         $limit = 10;
         $data = $request->query->all();
@@ -80,16 +81,19 @@ class UserController extends AbstractController
             'total'=>$total,
             'order' => $order,
             'search' =>$search,
-            'user'=>$user
+            'user'=>$user,
+            'waitingUsers'=>$waitingUsers
         ]);
     }
 
     /**
      * @Route("/new", name="admin_user_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
+
         $newUser = new User();
         $form = $this->createForm(UserForAdminInsertType::class, $newUser);
         $form->handleRequest($request);
@@ -117,15 +121,18 @@ class UserController extends AbstractController
             'user' => $user,
             'newUser'=>$newUser,
             'form' => $form->createView(),
+            'waitingUsers'=> $waitingUsers = $userRepository->count(["status"=>0])
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="admin_user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $editUser, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $editUser, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
+
         $form = $this->createForm(UserForAdminEditType::class, $editUser);
         $form->handleRequest($request);
 
@@ -155,7 +162,8 @@ class UserController extends AbstractController
             'user' => $user,
             'editUser'=> $editUser,
             'form' => $form->createView(),
-            'edit' => true
+            'edit' => true,
+            'waitingUsers' => $waitingUsers = $userRepository->count(["status"=>0])
         ]);
     }
 

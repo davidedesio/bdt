@@ -233,7 +233,7 @@ class ActivityController extends AbstractController
     }
 
     /**
-     * @Route("/restricted/activity", name="activity_new", methods={"POST"})
+     * @Route("/restricted/activity", name="activity_new_post", methods={"POST"})
      */
     public function new(Request $request, TranslatorInterface $translator): Response
     {
@@ -262,7 +262,7 @@ class ActivityController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_activity');
+        return $this->redirectToRoute('app_activity',["activityId"=>$activity->getId()]);
     }
 
     /**
@@ -549,19 +549,23 @@ class ActivityController extends AbstractController
                 $notification2->setDismissed(0);
                 $entityManager->persist($notification2);
 
-                $email = (new TemplatedEmail())
-                    ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
-                    ->to($activityCreateUser->getEmail())
-                    ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
-                    ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
-                    ->context([
-                        'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
-                        'activity' => $activity,
-                        'website'=> $_ENV['WEBSITE']
-                    ])
-                ;
+                if($user->getCommentsEmail()){
+                    //If user wants to get comments email
+                    $email = (new TemplatedEmail())
+                        ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
+                        ->to($activityCreateUser->getEmail())
+                        ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
+                        ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
+                        ->context([
+                            'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
+                            'activity' => $activity,
+                            'website'=> $_ENV['WEBSITE']
+                        ])
+                    ;
 
-                $mailer->send($email);
+                    $mailer->send($email);
+                }
+
             }
 
             $activityMatchCreateUsers = [];
@@ -579,17 +583,19 @@ class ActivityController extends AbstractController
                     $notification3->setDismissed(0);
                     $entityManager->persist($notification3);
 
-                    $email = (new TemplatedEmail())
-                        ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
-                        ->to($activityMatchCreateUser->getEmail())
-                        ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
-                        ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
-                        ->context([
-                            'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
-                            'activity' => $activity,
-                            'website'=> $_ENV['WEBSITE']
-                        ])
-                    ;
+                    if($activityMatchCreateUser->getCommentsEmail()) {
+                        //If user wants to get comments email
+                        $email = (new TemplatedEmail())
+                            ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
+                            ->to($activityMatchCreateUser->getEmail())
+                            ->subject($user->getName() . " " . $user->getSurname() . " " . $translator->trans('ACTIVITY_COMMENT_POSTFIX'))
+                            ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
+                            ->context([
+                                'matchTitle' => $user->getName() . " " . $user->getSurname() . " " . $translator->trans('ACTIVITY_COMMENT_POSTFIX'),
+                                'activity' => $activity,
+                                'website' => $_ENV['WEBSITE']
+                            ]);
+                    }
 
                     $mailer->send($email);
                 }
@@ -608,19 +614,21 @@ class ActivityController extends AbstractController
                     $notification4->setDismissed(0);
                     $entityManager->persist($notification4);
 
-                    $email = (new TemplatedEmail())
-                        ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
-                        ->to($activityCommentItemUser->getEmail())
-                        ->subject($user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'))
-                        ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
-                        ->context([
-                            'matchTitle' => $user->getName()." ".$user->getSurname()." ".$translator->trans('ACTIVITY_COMMENT_POSTFIX'),
-                            'activity' => $activity,
-                            'website'=> $_ENV['WEBSITE']
-                        ])
-                    ;
+                    if($activityCommentItemUser->getCommentsEmail()) {
+                        //If user wants to get comments email
+                        $email = (new TemplatedEmail())
+                            ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
+                            ->to($activityCommentItemUser->getEmail())
+                            ->subject($user->getName() . " " . $user->getSurname() . " " . $translator->trans('ACTIVITY_COMMENT_POSTFIX'))
+                            ->htmlTemplate('restricted/activity/partials/commentEmail.html.twig')
+                            ->context([
+                                'matchTitle' => $user->getName() . " " . $user->getSurname() . " " . $translator->trans('ACTIVITY_COMMENT_POSTFIX'),
+                                'activity' => $activity,
+                                'website' => $_ENV['WEBSITE']
+                            ]);
 
-                    $mailer->send($email);
+                        $mailer->send($email);
+                    }
                 }
             }
 

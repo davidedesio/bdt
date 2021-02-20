@@ -50,6 +50,8 @@ class UserType extends AbstractType
             ->add('birth_date', DateType::class, ['label'=>false,'widget' => 'single_text','html5' => false,'format' => 'dd/MM/yyyy','required'=>false])
             ->add('phone',TextType::class, ['label'=>false,'required'=>false])
             ->add('driving_licence', CheckboxType::class, ['label'=>false,'required'=>false]) //handled as toggle
+            ->add('activities_email', CheckboxType::class, ['label'=>false,'required'=>false]) //handled as toggle
+            ->add('comments_email', CheckboxType::class, ['label'=>false,'required'=>false]) //handled as toggle
             /*
             ->add('skills', EntityType::class, [
                 'class' => Skill::class,

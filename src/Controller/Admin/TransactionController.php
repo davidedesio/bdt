@@ -6,6 +6,7 @@ use App\Entity\Transaction;
 use App\Form\Transaction1Type;
 use App\Form\TransactionType;
 use App\Repository\TransactionRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,11 @@ class TransactionController extends AbstractController
     /**
      * @Route("/", name="admin_transaction_index", methods={"GET"})
      */
-    public function index(TransactionRepository $transactionRepository, Request $request): Response
+    public function index(TransactionRepository $transactionRepository, UserRepository $userRepository, Request $request): Response
     {
 
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
         $limit = 10;
         $data = $request->query->all();
         $page = 0;
@@ -77,16 +79,18 @@ class TransactionController extends AbstractController
             'search' => $search,
             'date_from' => $date_from,
             'date_to' => $date_to,
-            'user'=>$user
+            'user'=>$user,
+            'waitingUsers' => $waitingUsers
         ]);
     }
 
     /**
      * @Route("/new", name="admin_transaction_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(UserRepository $userRepository,Request $request): Response
     {
         $user = $this->getUser();
+        $waitingUsers = $userRepository->count(["status"=>0]);
 
         $transaction = new Transaction();
         $form = $this->createForm(TransactionType::class, $transaction);
@@ -106,7 +110,8 @@ class TransactionController extends AbstractController
         return $this->render('admin/transaction/new.html.twig', [
             'transaction' => $transaction,
             'form' => $form->createView(),
-            'user'=> $user
+            'user'=> $user,
+            'waitingUsers'=>$waitingUsers
         ]);
     }
 
