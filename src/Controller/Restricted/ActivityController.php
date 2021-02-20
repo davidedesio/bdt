@@ -260,6 +260,9 @@ class ActivityController extends AbstractController
             $entityManager->persist($activity);
             $entityManager->persist($notification);
             $entityManager->flush();
+
+            $request->attributes->set('activityId', $activity->getId());
+
         }
 
         return $this->redirectToRoute('app_activity',["activityId"=>$activity->getId()]);

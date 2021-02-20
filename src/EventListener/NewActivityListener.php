@@ -69,7 +69,7 @@ class NewActivityListener
             // If this is activity_new_post route
             $this->logger->info("Starting sending email to for this new activity to users...");
 
-            $activityId = $event->getRequest()->query->get('activityId');
+            $activityId = $event->getRequest()->attributes->get('activityId');
             $this->logger->info($activityId);
 
             $activity = $this->activityRepository->find($activityId);
@@ -83,7 +83,7 @@ class NewActivityListener
 
                     $bank = $this->bankRepository->find(1);
 
-                    $newTitle = "Nuova attivit?: ".$activity->getType()->getNameIT()." ".$activity->getCategory()->getNameIT(). " di ".$activity->getCreateUser()->getName();
+                    $newTitle = $activity->getType()->getNameIT()." ".$activity->getCategory()->getNameIT(). " di ".$activity->getCreateUser()->getName();
                     $email = (new TemplatedEmail())
                         ->from(new Address($bank->getSenderEmail(), $bank->getSenderName()))
                         ->to($userEmail)
