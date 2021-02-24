@@ -193,6 +193,11 @@ class User implements UserInterface
      */
     private $activitiesEmail = 1;
 
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $rating = 0;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -798,6 +803,18 @@ class User implements UserInterface
     public function setActivitiesEmail(bool $activitiesEmail): self
     {
         $this->activitiesEmail = $activitiesEmail;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
 
         return $this;
     }

@@ -47,41 +47,44 @@
         </div>
     </div>
     <div class="card-body">
-        {% if activity.acceptedUser is null %}
-        <div class="row activity-info">
-            <div class="col-lg-12">
-                <i class="fa fa-user-plus"></i>
-                <a href="{{ path('app_activity_detail',{id:activity.id}) }}">
-                    {% if activity.activityMatches is empty %}
 
-                        {% if activity.type.id==1 %}
-                            {{ 'ACTIVITY_AVAILABLE_EMPTY'|trans }}
-                        {% endif %}
-                        {% if activity.type.id==2 %}
-                            {{ 'ACTIVITY_NEEDED_EMPTY'|trans }}
-                        {% endif %}
-
-                    {% else %}
-
-                        {% if activity.type.id==1 %}
-                            {{ activity.activityMatches|length }} {{ 'ACTIVITY_PEOPLE_AVAILABLE'|trans }}
-                        {% endif %}
-                        {% if activity.type.id==2 %}
-                            {{ activity.activityMatches|length }} {{ 'ACTIVITY_PEOPLE_NEEDED'|trans }}
-                        {% endif %}
-
-                    {% endif %}
-                </a>
-            </div>
-
-        </div>
-        {% else %}
-            <div class="row">
+        {% if current_path!='app_member_profile' %}
+            {% if activity.acceptedUser is null %}
+            <div class="row activity-info">
                 <div class="col-lg-12">
                     <i class="fa fa-user-plus"></i>
-                    Svolto da {{ activity.acceptedUser.name }} {{ activity.acceptedUser.surname }}
+                    <a href="{{ path('app_activity_detail',{id:activity.id}) }}">
+                        {% if activity.activityMatches is empty %}
+
+                            {% if activity.type.id==1 %}
+                                {{ 'ACTIVITY_AVAILABLE_EMPTY'|trans }}
+                            {% endif %}
+                            {% if activity.type.id==2 %}
+                                {{ 'ACTIVITY_NEEDED_EMPTY'|trans }}
+                            {% endif %}
+
+                        {% else %}
+
+                            {% if activity.type.id==1 %}
+                                {{ activity.activityMatches|length }} {{ 'ACTIVITY_PEOPLE_AVAILABLE'|trans }}
+                            {% endif %}
+                            {% if activity.type.id==2 %}
+                                {{ activity.activityMatches|length }} {{ 'ACTIVITY_PEOPLE_NEEDED'|trans }}
+                            {% endif %}
+
+                        {% endif %}
+                    </a>
                 </div>
+
             </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <i class="fa fa-user-plus"></i>
+                        Svolto da {{ activity.acceptedUser.name }} {{ activity.acceptedUser.surname }}
+                    </div>
+                </div>
+            {% endif %}
         {% endif %}
 
         <div class="row activity-description-container">
@@ -89,7 +92,28 @@
             <div class="activity-description col-lg-12">
                 {{ activity.description }}
             </div>
-            {% include('restricted/activity/partials/button.html.twig') %}
+
+            {% if current_path!='app_member_profile' %}
+                {% include('restricted/activity/partials/button.html.twig') %}
+            {% else %}
+
+                {% if activity.rated!=1 %}
+                    <a class="col-lg-12 activity-button " href="{{ path('app_activity_rate',{id:activity.id}) }}">
+                        <span id="activity-rate-{{ activity.id }}">
+                            Assegna medaglia
+                            <i class="fa fa-medal"></i>
+                        </span>
+                    </a>
+                {% else %}
+                    <a class="col-lg-12 activity-button" style="cursor:default;background:#204e51 !important;">
+                        <span id="activity-rate-{{ activity.id }}">
+                            Medaglia assegnata
+                            <i class="fa fa-medal"></i>
+                        </span>
+                    </a>
+                {% endif %}
+
+            {% endif %}
 
         </div>
 

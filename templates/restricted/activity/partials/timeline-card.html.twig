@@ -16,7 +16,10 @@
         <div class="flex justify-between items-center">
             <a href="{{ path('app_member_profile',{id:activity.createUser.id}) }}" class="cd-timeline__created">{{ activity.createUser.name }} {{ activity.createUser.surname }}</a>
             <span class="cd-timeline__date">
-                <span class="user-points">{{ acitivitiesUsersStatistics[loop.index0].level.points }}p</span>&nbsp;|&nbsp;<i class="fa {{ acitivitiesUsersStatistics[loop.index0].level.icon }}"></i>&nbsp;<span>{{ acitivitiesUsersStatistics[loop.index0].level.extended }}</span>
+                <span class="user-points">
+                    {{ acitivitiesUsersStatistics[loop.index0].level.points }}p</span>
+                    {% if acitivitiesUsersStatistics[loop.index0].rating>0 %}|&nbsp;<i class="fa fa-medal"></i>&nbsp;{{ acitivitiesUsersStatistics[loop.index0].rating }}&nbsp;{% endif %}
+                    |&nbsp;<i class="fa {{ acitivitiesUsersStatistics[loop.index0].level.icon }}"></i>&nbsp;<span>{{ acitivitiesUsersStatistics[loop.index0].level.extended }}</span>
             </span>
         </div>
     </div> <!-- cd-timeline__content -->

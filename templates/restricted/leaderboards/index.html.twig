@@ -20,6 +20,34 @@
                     {% include('restricted/user-profile/partials/card.profile.html.twig') %}
                 </div>
                 <div class="col-xl-8 order-xl-1">
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="month-analytics">
+                                <div class="month-analytics-title">{{ 'LEADERBOARDS_PAGE_TOTAL_ACTIVITIES'|trans }}</div>
+                                <div class="month-analytics-unit">{{ totalActivities }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="month-analytics two">
+                                <div class="month-analytics-title">{{ 'LEADERBOARDS_PAGE_CLOSED_ACTIVITIES'|trans }}</div>
+                                <div class="month-analytics-unit">{{ closedActivities }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="month-analytics">
+                                <div class="month-analytics-title">{{ 'LEADERBOARDS_PAGE_TOTAL_ACTIVITIES_HOURS'|trans }}</div>
+                                <div class="month-analytics-unit">{{ totalActivitiesHours }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="month-analytics two">
+                                <div class="month-analytics-title">{{ 'LEADERBOARDS_PAGE_CLOSED_ACTIVITIES_HOURS'|trans }}</div>
+                                <div class="month-analytics-unit">{{ closedActivitiesHours }}</div>
+                            </div>
+                        </div>
+                    </div>
+
                     {% include('restricted/leaderboards/partials/heading.html.twig') %}
                     <hr>
                     {% include('restricted/leaderboards/partials/listing.html.twig') %}
@@ -49,6 +77,12 @@
                 info: false
             });
             $("#get").DataTable({
+                paging:false,
+                searching: false,
+                ordering:  false,
+                info: false
+            });
+            $("#medal").DataTable({
                 paging:false,
                 searching: false,
                 ordering:  false,

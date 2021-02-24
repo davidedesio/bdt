@@ -63,15 +63,20 @@
             <div class="h5 mt-4">
                 {{ user.job }}
             </div>
-            <div class="user-points-container" style="border: 1px solid #192539;border-radius:10px;background:#192539;color:white;margin-top:-20px;margin-bottom:10px"><span class="user-points">{{ statistics.level.points }}p</span>&nbsp;|&nbsp;<i class="fa {{ statistics.level.icon }}"></i>&nbsp;<span>{{ statistics.level.extended }}</span></div>
+            <div class="user-points-container" style="border: 1px solid #192539;border-radius:10px;background:#192539;color:white;margin-top:-20px;margin-bottom:10px">
+                <span class="user-points">{{ statistics.level.points }}p</span>
+                {% if statistics.rating>0 %}|&nbsp;<i class="fa fa-medal"></i>&nbsp;{{ statistics.rating }}&nbsp;{% endif %}
+                |&nbsp;<i class="fa {{ statistics.level.icon }}"></i>&nbsp;<span>{{ statistics.level.extended }}</span>
+            </div>
             <div class="user-points-hint" style="font-size:15px;text-align:justify">
-                <span>In questo box puoi vedere i tuoi punti (<b>{{ statistics.level.points }}p</b>) e il tuo attuale livello (<b>{{ statistics.level.extended }}</b>).</span>
+                <span>In questo box puoi vedere i tuoi punti (<b>{{ statistics.level.points }}p</b>){% if statistics.rating>0 %}, la tua reputazione (<b>{{ statistics.rating  }}</b> medaglie){% endif %} e il tuo attuale livello (<b>{{ statistics.level.extended }}</b>).</span>
                 <span>Queste informazioni indicano agli altri utenti il tuo grado di partecipazione alla piattaforma.</span>
                 <span>Al crescere dei punti ti verrà assegnato un livello superiore, in modo che la tua reputazione aumenti di conseguenza alle azioni che fai sulla Banca del Tempo.</span>
                 {% if statistics.level.next is not null %}
                     <span><b>Il prossimo livello che puoi raggiungere è {{ statistics.level.next }}, quando otterrai {{ statistics.level.limit }} punti.</b></span>
                 {% endif %}
                 <span>Sono assegnati 10 punti per ogni attività eseguita e 5 punti per ogni attività che hai ricevuto.</span>
+                <span><b>Gli utenti possono assegnarti delle medaglie per aumentare la tua reputazione</b>: ricordati di chiedere un feedback sulle attività che svolgi!</span>
             </div>
 
         </div>

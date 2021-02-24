@@ -283,3 +283,8 @@ LEADERBOARDS_PAGE_HEADING: "Lo spirito della Banca del Tempo è quello di creare
 LEADERBOARDS_PAGE_LISTING_SUBTITLE_0: "Le 10 persone con maggior numero di punti"
 LEADERBOARDS_PAGE_LISTING_SUBTITLE_1: "Le 10 persone con maggior numero di attività svolte"
 LEADERBOARDS_PAGE_LISTING_SUBTITLE_2: "Le 10 persone con maggior numero di attività richieste"
+LEADERBOARDS_PAGE_LISTING_SUBTITLE_3: "Le 10 persone più affidabili (con maggior numero di medaglie)"
+LEADERBOARDS_PAGE_TOTAL_ACTIVITIES: "Attività inserite questo mese"
+LEADERBOARDS_PAGE_CLOSED_ACTIVITIES: "Attività effettuate questo mese"
+LEADERBOARDS_PAGE_TOTAL_ACTIVITIES_HOURS: "Ore richieste questo mese"
+LEADERBOARDS_PAGE_CLOSED_ACTIVITIES_HOURS: "Ore scambiate questo mese"

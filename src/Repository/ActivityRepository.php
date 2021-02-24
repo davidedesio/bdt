@@ -252,4 +252,66 @@ class ActivityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function countTotal($startDate,$endDate)
+    {
+
+        $query = $this->createQueryBuilder('a')
+            ->select("count(a.id)")
+            ->andWhere("a.date >= :start AND a.date <= :end")
+            ->setParameter("start",$startDate)
+            ->setParameter("end",$endDate);
+
+        // SHOW SQL:
+        //echo $query->getQUery()->getSQL();
+        // Show Parameters:
+        //var_dump($query->getParameters());
+
+        return $query->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countTotalHours($startDate,$endDate)
+    {
+        return $this->createQueryBuilder('a')
+            ->select("sum(a.estimated_value)")
+            ->andWhere("a.date >= :start AND a.date <= :end")
+            ->setParameter("start",$startDate)
+            ->setParameter("end",$endDate)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countClosed($startDate,$endDate)
+    {
+        return $this->createQueryBuilder('a')
+            ->select("count(a.id)")
+            ->andWhere("a.acceptedUser is not null")
+            ->andWhere("a.date >= :start AND a.date <= :end")
+            ->setParameter("start",$startDate)
+            ->setParameter("end",$endDate)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countClosedHours($startDate,$endDate)
+    {
+        return $this->createQueryBuilder('a')
+            ->select("sum(a.estimated_value)")
+            ->andWhere("a.acceptedUser is not null")
+            ->andWhere("a.date >= :start AND a.date <= :end")
+            ->setParameter("start",$startDate)
+            ->setParameter("end",$endDate)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getCommonActivities($user,$member){
+        return $this->createQueryBuilder('a')
+            ->where("(a.acceptedUser=:user and a.createUser = :member) or (a.acceptedUser=:member and a.createUser = :user)")
+            ->setParameter("user",$user)
+            ->setParameter("member",$member)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

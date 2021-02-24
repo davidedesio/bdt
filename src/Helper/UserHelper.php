@@ -116,7 +116,8 @@ class UserHelper
                 'received'=>$receivedTransactionsTotalValue,
                 'credit'=>$totalCredit
             ],
-            'level'=>$level
+            'level'=>$level,
+            "rating"=>$user->getRating()
         ];
     }
 

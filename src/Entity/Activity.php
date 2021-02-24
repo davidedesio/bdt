@@ -93,6 +93,11 @@ class Activity
      */
     private $location;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":0})
+     */
+    private $rated = 0;
+
     public function __construct()
     {
         $this->activityMatches = new ArrayCollection();
@@ -351,6 +356,18 @@ class Activity
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getRated(): ?bool
+    {
+        return $this->rated;
+    }
+
+    public function setRated(bool $rated): self
+    {
+        $this->rated = $rated;
 
         return $this;
     }

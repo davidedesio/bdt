@@ -809,4 +809,50 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute('app_activity');
     }
 
+    /**
+     * @Route("restricted/activity/rate/{id}", name="app_activity_rate", methods={"GET"})
+     */
+    public function rate(
+        Request $request,
+        Activity $activity
+    ): Response
+    {
+        $user = $this->getUser();
+
+        $activity->setRated(1);
+
+        $this->getDoctrine()->getManager()->persist($activity);
+        $this->getDoctrine()->getManager()->flush();
+
+        $createUser = $activity->getCreateUser();
+        $acceptedUser = $activity->getAcceptedUser();
+
+        if($createUser==$user){
+
+            //If activity created by this user
+            //Then rate accepted
+            $rating = $acceptedUser->getRating();
+            $rating = $rating+1;
+            $acceptedUser->setRating($rating);
+            $this->getDoctrine()->getManager()->persist($acceptedUser);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('app_member_profile',["id"=>$acceptedUser->getId()]);
+
+        } else {
+            //If activity created by another one
+            //Then rate him
+            $rating = $createUser->getRating();
+            $rating = $rating+1;
+            $createUser->setRating($rating);
+            $this->getDoctrine()->getManager()->persist($createUser);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('app_member_profile',["id"=>$createUser->getId()]);
+
+        }
+
+
+    }
+
 }

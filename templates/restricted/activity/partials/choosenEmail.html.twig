@@ -17,4 +17,4 @@
     {% if user.phone is not null %}<li>Telefono: {{ user.phone }}</li>{% endif %}
 </ul>
 
-
+<p>Puoi assegnare una medaglia a {{ user.name }} nell'apposita sezione del suo <a href="{{ website }}{{ path('app_member_profile',{id:user.id}) }}">profilo</a></p>

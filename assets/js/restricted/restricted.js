@@ -5,11 +5,14 @@ import 'jquery-ui/themes/base/all.css';
 import 'selectize/dist/css/selectize.default.css';
 import 'timepicker/jquery.timepicker.min.css'
 import 'jbox/dist/jBox.all.css';
+import 'owl.carousel/dist/assets/owl.carousel.min.css';
+import 'owl.carousel/dist/assets/owl.theme.default.min.css';
 import '../../css/restricted/restricted.css';
 import '../../css/restricted/restricted-custom.css';
 import '../../css/restricted/timeline.css';
 import '../../css/commons/hourglass.css';
 import '../../css/public/show-password-toggle.css';
+
 import $ from 'jquery';
 import datepickerFactory from 'jquery-datepicker';
 import datepickerITFactory from 'jquery-datepicker/i18n/jquery.ui.datepicker-it';
@@ -49,6 +52,8 @@ import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 
 global.EmojiButton = EmojiButton;
+
+require('owl.carousel');
 
 require('./calendar.js');
 require('./timeline.js');

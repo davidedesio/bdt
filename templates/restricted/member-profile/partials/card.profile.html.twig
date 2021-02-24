@@ -53,7 +53,10 @@
         </div>
         <div class="text-center">
             <h3>
-                <span class="user-points">{{ memberStatistics.level.points }}p</span>&nbsp;|&nbsp;<i class="fa {{ memberStatistics.level.icon }}"></i>&nbsp;<span>{{ memberStatistics.level.extended }}</span>
+                <span class="user-points">
+                    {{ memberStatistics.level.points }}p</span>
+                    {% if memberStatistics.rating>0 %}|&nbsp;<i class="fa fa-medal"></i>&nbsp;{{ memberStatistics.rating }}&nbsp;{% endif %}
+                    |&nbsp;<i class="fa {{ memberStatistics.level.icon }}"></i>&nbsp;<span>{{ memberStatistics.level.extended }}</span>
             </h3>
         </div>
     </div>

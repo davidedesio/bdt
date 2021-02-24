@@ -7,6 +7,7 @@ use App\Entity\Notification;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Helper\UserHelper;
+use App\Repository\ActivityRepository;
 use App\Repository\BankRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\SkillRepository;
@@ -171,6 +172,7 @@ class UserProfileController extends AbstractController
     public function member(
         User $member,
         UserHelper $userHelper,
+        ActivityRepository $activityRepository,
         NotificationRepository $notificationRepository)
     {
         $user = $this->getUser();
@@ -185,13 +187,16 @@ class UserProfileController extends AbstractController
         //Get latest notifications for this user
         $notifications = $notificationRepository->findBy(["user"=>$user,'dismissed'=>false],["id"=>"desc"]);
 
+        $activities = $activityRepository->getCommonActivities($user,$member);
+
         return $this->render('restricted/member-profile/index.html.twig', [
             'user' => $user,
             'statistics' => $statistics,
             'member' => $member,
             'memberStatistics' => $memberStatistics,
             'notifications'=>$notifications,
-            'passwordChanged' => false
+            'passwordChanged' => false,
+            'activities' => $activities
         ]);
     }
 

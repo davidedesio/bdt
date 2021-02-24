@@ -866,6 +866,55 @@ table tr td.actions a{
     animation-iteration-count: 2;
 }
 
+.month-analytics{
+    border: 1px solid #192539;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background: #192539;
+    color: white;
+    font-size: 18px;
+}
+
+.month-analytics.two{
+    border: 1px solid #30727e;
+    background: #30727e;
+}
+
+.month-analytics-title{
+
+}
+
+.month-analytics-unit{
+    font-size:50px;
+}
+
+.owl-nav .owl-next{
+    float:right;
+}
+
+.owl-nav .owl-prev{
+    float:left;
+}
+
+.owl-nav .owl-next, .owl-nav .owl-prev{
+    font-size:50px !important;
+    background: #192539 !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
+    color:white !important;
+}
+
+.owl-dot span{
+    margin: 30px 7px !important;
+    height:25px !important;
+    width:25px !important;
+}
+
+.owl-dot.active span{
+    background-color: #192539 !important;
+}
 
 /*************************/
 /*     03. Media Queries */
