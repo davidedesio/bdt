@@ -43,18 +43,20 @@
                                 </div>
                             </div>
 
-                            <div class="mt-3">
-                                <h1>Vota le attività condivise</h1>
-                                <p>
-                                    Puoi decidere di assegnar una medaglia a {{ member.name }} per ogni attività che avete condiviso e di cui sei rimasto soddisfatto. Il tuo gesto aiuterà a far crescere la reputazione di {{ member.name }} sulla piattaforma classificandolo come una persona affidabile!</p>
-                            </div>
-                            <div class="owl-carousel owl-theme ">
-                                {% for activity in activities %}
-                                    <div class="item">
-                                        {% include('restricted/activity/partials/detail.html.twig') %}
-                                    </div>
-                                {% endfor %}
-                            </div>
+                            {% if activities is defined and activities|length>0 %}
+                                <div class="mt-3">
+                                    <h1>Vota le attività condivise</h1>
+                                    <p>
+                                        Puoi decidere di assegnar una medaglia a {{ member.name }} per ogni attività che avete condiviso e di cui sei rimasto soddisfatto. Il tuo gesto aiuterà a far crescere la reputazione di {{ member.name }} sulla piattaforma classificandolo come una persona affidabile!</p>
+                                </div>
+                                <div class="owl-carousel owl-theme ">
+                                    {% for activity in activities %}
+                                        <div class="item">
+                                            {% include('restricted/activity/partials/detail.html.twig') %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
 
                         </div>
 
